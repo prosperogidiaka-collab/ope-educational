@@ -1,0 +1,19 @@
+{
+  "id": "school_ope_001",
+  "schoolCode": "OPE-SEC-001",
+  "name": "OPE EDUCATIONAL",
+  "shortName": "OPE EDUCATIONAL",
+  "motto": "Discipline, Excellence, Distinction",
+  "address": "12 Victory Avenue, Ikeja, Lagos",
+  "principalName": "Mrs. Opeyemi Adewale",
+  "schoolAdminName": "Mrs. Damilola Arinze",
+  "schoolAdminEmail": "admin@ope.edu.ng",
+  "session": "2025/2026",
+  "term": "Second Term",
+  "examType": "Terminal Examination",
+  "portalSlug": "ope-educational",
+  "nextResumptionDate": "2026-05-18T08:00:00.000Z",
+  "logoUrl": "/assets/ope-educational-logo.svg",
+  "watermarkLogoUrl": "/assets/ope-watermark.svg",
+  "governmentStampUrl": "/assets/ope-government-stamp.svg"
+}

@@ -1,0 +1,363 @@
+{
+  "schoolCode": "OPE-SEC-001",
+  "starterTemplates": [
+    {
+      "id": "exec_template",
+      "name": "The Executive",
+      "summary": "Prestige-style result with strong header hierarchy, signatures, and verified branding.",
+      "primaryColor": "#0f4c5c",
+      "fontFamily": "Playfair Display",
+      "borderStyle": "executive",
+      "terminology": {
+        "termLabel": "Term",
+        "teacherRemarkLabel": "Teacher's Remark",
+        "classTeacherRemarkLabel": "Class Teacher's Remark",
+        "principalRemarkLabel": "Principal's Remark"
+      },
+      "zones": [
+        "header",
+        "student_bio",
+        "academic_table",
+        "qualitative",
+        "remarks",
+        "signatures"
+      ],
+      "header": {
+        "logoPosition": "left",
+        "showSchoolName": true,
+        "showAddress": true,
+        "showSchoolCode": true,
+        "showGovernmentStamp": true,
+        "logoUrl": "/assets/ope-educational-logo.svg",
+        "governmentStampUrl": "/assets/ope-government-stamp.svg"
+      },
+      "studentBio": {
+        "showPassport": true,
+        "showDob": true,
+        "showAge": true,
+        "showGender": true,
+        "showRegNumber": true,
+        "showHouse": true,
+        "showHostel": false
+      },
+      "academicTable": {
+        "columns": [
+          "test1",
+          "test2",
+          "exam",
+          "total",
+          "grade",
+          "subjectPosition",
+          "classAverage"
+        ]
+      },
+      "qualitative": {
+        "showAffective": true,
+        "showPsychomotor": true
+      },
+      "signatures": {
+        "showClassTeacherSignature": true,
+        "showPrincipalSignature": true,
+        "classTeacherSignatureUrl": "/assets/class-teacher-signature.svg",
+        "principalSignatureUrl": "/assets/principal-signature.svg"
+      },
+      "watermark": {
+        "enabled": true,
+        "imageUrl": "/assets/ope-watermark.svg",
+        "opacity": 0.08
+      },
+      "controls": {
+        "showGradingLegend": false,
+        "showTrendAnalysis": true,
+        "showVerificationQr": true,
+        "previewWithSampleData": true
+      }
+    },
+    {
+      "id": "traditional_template",
+      "name": "The Traditional",
+      "summary": "Heavy borders, full academic columns, and government-stamp first presentation.",
+      "primaryColor": "#203748",
+      "fontFamily": "Georgia",
+      "borderStyle": "traditional",
+      "terminology": {
+        "termLabel": "Term",
+        "teacherRemarkLabel": "Teacher's Remark",
+        "classTeacherRemarkLabel": "Form Teacher's Remark",
+        "principalRemarkLabel": "Principal's Remark"
+      },
+      "zones": [
+        "header",
+        "student_bio",
+        "academic_table",
+        "qualitative",
+        "remarks",
+        "signatures",
+        "verification"
+      ],
+      "header": {
+        "logoPosition": "center",
+        "showSchoolName": true,
+        "showAddress": true,
+        "showSchoolCode": true,
+        "showGovernmentStamp": true,
+        "logoUrl": "/assets/ope-educational-logo.svg",
+        "governmentStampUrl": "/assets/ope-government-stamp.svg"
+      },
+      "studentBio": {
+        "showPassport": true,
+        "showDob": true,
+        "showAge": true,
+        "showGender": true,
+        "showRegNumber": true,
+        "showHouse": true,
+        "showHostel": false
+      },
+      "academicTable": {
+        "columns": [
+          "test1",
+          "test2",
+          "exam",
+          "total",
+          "grade",
+          "subjectPosition",
+          "classAverage"
+        ]
+      },
+      "qualitative": {
+        "showAffective": true,
+        "showPsychomotor": true
+      },
+      "signatures": {
+        "showClassTeacherSignature": true,
+        "showPrincipalSignature": true,
+        "classTeacherSignatureUrl": "/assets/class-teacher-signature.svg",
+        "principalSignatureUrl": "/assets/principal-signature.svg"
+      },
+      "watermark": {
+        "enabled": true,
+        "imageUrl": "/assets/ope-watermark.svg",
+        "opacity": 0.06
+      },
+      "controls": {
+        "showGradingLegend": true,
+        "showTrendAnalysis": true,
+        "showVerificationQr": true,
+        "previewWithSampleData": true
+      }
+    },
+    {
+      "id": "minimalist_template",
+      "name": "The Minimalist",
+      "summary": "Clean spacing, fewer borders, and only the most essential publication blocks.",
+      "primaryColor": "#1c6b74",
+      "fontFamily": "Inter",
+      "borderStyle": "minimalist",
+      "terminology": {
+        "termLabel": "Semester",
+        "teacherRemarkLabel": "Instructor's Comment",
+        "classTeacherRemarkLabel": "Guardian Teacher Comment",
+        "principalRemarkLabel": "Head of School Note"
+      },
+      "zones": [
+        "header",
+        "student_bio",
+        "academic_table",
+        "remarks",
+        "verification"
+      ],
+      "header": {
+        "logoPosition": "right",
+        "showSchoolName": true,
+        "showAddress": false,
+        "showSchoolCode": true,
+        "showGovernmentStamp": false,
+        "logoUrl": "/assets/ope-educational-logo.svg",
+        "governmentStampUrl": "/assets/ope-government-stamp.svg"
+      },
+      "studentBio": {
+        "showPassport": false,
+        "showDob": false,
+        "showAge": false,
+        "showGender": false,
+        "showRegNumber": true,
+        "showHouse": false,
+        "showHostel": false
+      },
+      "academicTable": {
+        "columns": [
+          "exam",
+          "total",
+          "grade"
+        ]
+      },
+      "qualitative": {
+        "showAffective": false,
+        "showPsychomotor": false
+      },
+      "signatures": {
+        "showClassTeacherSignature": false,
+        "showPrincipalSignature": true,
+        "principalSignatureUrl": "/assets/principal-signature.svg"
+      },
+      "watermark": {
+        "enabled": true,
+        "imageUrl": "/assets/ope-watermark.svg",
+        "opacity": 0.04
+      },
+      "controls": {
+        "showGradingLegend": false,
+        "showTrendAnalysis": false,
+        "showVerificationQr": true,
+        "previewWithSampleData": true
+      }
+    }
+  ],
+  "draftSchema": {
+    "id": "exec_template",
+    "name": "The Executive",
+    "summary": "Prestige-style result with strong header hierarchy, signatures, and verified branding.",
+    "primaryColor": "#0f4c5c",
+    "fontFamily": "Playfair Display",
+    "borderStyle": "executive",
+    "terminology": {
+      "termLabel": "Term",
+      "teacherRemarkLabel": "Teacher's Remark",
+      "classTeacherRemarkLabel": "Class Teacher's Remark",
+      "principalRemarkLabel": "Principal's Remark"
+    },
+    "zones": [
+      "header",
+      "student_bio",
+      "academic_table",
+      "qualitative",
+      "remarks",
+      "signatures"
+    ],
+    "header": {
+      "logoPosition": "left",
+      "showSchoolName": true,
+      "showAddress": true,
+      "showSchoolCode": true,
+      "showGovernmentStamp": true,
+      "logoUrl": "/assets/ope-educational-logo.svg",
+      "governmentStampUrl": "/assets/ope-government-stamp.svg"
+    },
+    "studentBio": {
+      "showPassport": true,
+      "showDob": true,
+      "showAge": true,
+      "showGender": true,
+      "showRegNumber": true,
+      "showHouse": true,
+      "showHostel": false
+    },
+    "academicTable": {
+      "columns": [
+        "test1",
+        "test2",
+        "exam",
+        "total",
+        "grade",
+        "subjectPosition",
+        "classAverage"
+      ]
+    },
+    "qualitative": {
+      "showAffective": true,
+      "showPsychomotor": true
+    },
+    "signatures": {
+      "showClassTeacherSignature": true,
+      "showPrincipalSignature": true,
+      "classTeacherSignatureUrl": "/assets/class-teacher-signature.svg",
+      "principalSignatureUrl": "/assets/principal-signature.svg"
+    },
+    "watermark": {
+      "enabled": true,
+      "imageUrl": "/assets/ope-watermark.svg",
+      "opacity": 0.08
+    },
+    "controls": {
+      "showGradingLegend": false,
+      "showTrendAnalysis": true,
+      "showVerificationQr": true,
+      "previewWithSampleData": true
+    }
+  },
+  "liveSchema": {
+    "id": "exec_template",
+    "name": "The Executive",
+    "summary": "Prestige-style result with strong header hierarchy, signatures, and verified branding.",
+    "primaryColor": "#0f4c5c",
+    "fontFamily": "Playfair Display",
+    "borderStyle": "executive",
+    "terminology": {
+      "termLabel": "Term",
+      "teacherRemarkLabel": "Teacher's Remark",
+      "classTeacherRemarkLabel": "Class Teacher's Remark",
+      "principalRemarkLabel": "Principal's Remark"
+    },
+    "zones": [
+      "header",
+      "student_bio",
+      "academic_table",
+      "qualitative",
+      "remarks",
+      "signatures"
+    ],
+    "header": {
+      "logoPosition": "left",
+      "showSchoolName": true,
+      "showAddress": true,
+      "showSchoolCode": true,
+      "showGovernmentStamp": true,
+      "logoUrl": "/assets/ope-educational-logo.svg",
+      "governmentStampUrl": "/assets/ope-government-stamp.svg"
+    },
+    "studentBio": {
+      "showPassport": true,
+      "showDob": true,
+      "showAge": true,
+      "showGender": true,
+      "showRegNumber": true,
+      "showHouse": true,
+      "showHostel": false
+    },
+    "academicTable": {
+      "columns": [
+        "test1",
+        "test2",
+        "exam",
+        "total",
+        "grade",
+        "subjectPosition",
+        "classAverage"
+      ]
+    },
+    "qualitative": {
+      "showAffective": true,
+      "showPsychomotor": true
+    },
+    "signatures": {
+      "showClassTeacherSignature": true,
+      "showPrincipalSignature": true,
+      "classTeacherSignatureUrl": "/assets/class-teacher-signature.svg",
+      "principalSignatureUrl": "/assets/principal-signature.svg"
+    },
+    "watermark": {
+      "enabled": true,
+      "imageUrl": "/assets/ope-watermark.svg",
+      "opacity": 0.08
+    },
+    "controls": {
+      "showGradingLegend": false,
+      "showTrendAnalysis": true,
+      "showVerificationQr": true,
+      "previewWithSampleData": true
+    }
+  },
+  "status": "locked",
+  "lockedReason": "The current term already has published results, so the live template is locked for consistency.",
+  "updatedAt": "2026-05-12T14:15:27.216Z"
+}

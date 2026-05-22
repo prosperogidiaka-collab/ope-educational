@@ -1,0 +1,5 @@
+<svg width="360" height="120" viewBox="0 0 360 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 82C42 41 61 33 77 51C93 69 98 101 117 102C133 103 145 58 162 58C180 58 171 93 189 95C206 97 215 48 232 47C251 46 253 89 272 90C291 91 311 50 340 34" stroke="#123B59" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M38 99H226" stroke="#C59D43" stroke-width="3" stroke-linecap="round"/>
+  <text x="42" y="117" fill="#123B59" font-size="16" font-family="Georgia, serif">Principal Signature</text>
+</svg>

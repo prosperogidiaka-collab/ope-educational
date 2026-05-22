@@ -1,0 +1,30 @@
+[
+  {
+    "id": "school_log_001",
+    "schoolCode": "OPE-SEC-001",
+    "category": "daily_report",
+    "title": "Daily school operations summary",
+    "body": "Morning assembly, lesson supervision, and sanitation checks were completed. Two late teachers were counselled and the science lab restock was escalated.",
+    "logDate": "2026-05-15",
+    "reportingWindow": "Daily",
+    "authorName": "Mrs. Folasade Adekunle",
+    "authorRole": "registrar",
+    "createdAt": "2026-05-15T15:20:00.000Z",
+    "updatedAt": "2026-05-15T15:20:00.000Z"
+  },
+  {
+    "id": "school_log_002",
+    "schoolCode": "OPE-SEC-001",
+    "category": "visitor",
+    "title": "Visitor log entry",
+    "body": "PTA chairman visited the school to review the inter-house sports readiness and speak with the school admin.",
+    "logDate": "2026-05-14",
+    "reportingWindow": "Visitor",
+    "visitorName": "Mr. Adeyemi",
+    "visitorPurpose": "PTA follow-up on sports preparations",
+    "authorName": "Mrs. Folasade Adekunle",
+    "authorRole": "registrar",
+    "createdAt": "2026-05-14T13:10:00.000Z",
+    "updatedAt": "2026-05-14T13:10:00.000Z"
+  }
+]

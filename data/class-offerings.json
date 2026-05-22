@@ -1,0 +1,63 @@
+[
+  {
+    "className": "SS2 Gold",
+    "arm": "Gold",
+    "track": "Science",
+    "section": "senior",
+    "classTeacher": "Mrs. Folake Aina",
+    "hod": "Dr. Tunde Balogun",
+    "subjectIds": [
+      "math",
+      "eng",
+      "bio",
+      "chem",
+      "phy",
+      "econ",
+      "crs",
+      "civ"
+    ],
+    "electiveSubjectIds": [],
+    "publicationProgress": 100,
+    "pendingTeachers": [],
+    "id": "2025_2026_ss2_gold",
+    "schoolCode": "OPE-SEC-001",
+    "session": "2025/2026",
+    "status": "active",
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "updatedBy": "Mrs. Damilola Arinze",
+    "baseClassName": "SS2"
+  },
+  {
+    "className": "SS2 Silver",
+    "arm": "Silver",
+    "track": "Arts",
+    "section": "senior",
+    "classTeacher": "Mr. Joseph Olatunji",
+    "hod": "Mrs. Chizoba Okeke",
+    "subjectIds": [
+      "math",
+      "eng",
+      "lit",
+      "gov",
+      "econ",
+      "crs",
+      "civ"
+    ],
+    "electiveSubjectIds": [
+      "lit",
+      "econ",
+      "crs"
+    ],
+    "publicationProgress": 64,
+    "pendingTeachers": [
+      "Literature"
+    ],
+    "id": "2025_2026_ss2_silver",
+    "schoolCode": "OPE-SEC-001",
+    "session": "2025/2026",
+    "status": "active",
+    "updatedAt": "2026-05-16T08:00:00.000Z",
+    "updatedBy": "Mrs. Damilola Arinze",
+    "baseClassName": "SS2"
+  }
+]

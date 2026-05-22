@@ -1,0 +1,7 @@
+<svg width="260" height="260" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="130" cy="130" r="106" stroke="#A61E4D" stroke-width="10"/>
+  <circle cx="130" cy="130" r="80" stroke="#A61E4D" stroke-width="6" stroke-dasharray="8 8"/>
+  <path d="M130 64L144.694 109.223H192.247L153.777 137.154L168.472 182.377L130 154.446L91.5279 182.377L106.223 137.154L67.7529 109.223H115.306L130 64Z" fill="#A61E4D" fill-opacity="0.18"/>
+  <text x="130" y="120" text-anchor="middle" fill="#A61E4D" font-size="22" font-family="Georgia, serif" font-weight="700">APPROVED</text>
+  <text x="130" y="148" text-anchor="middle" fill="#A61E4D" font-size="14" font-family="Trebuchet MS, sans-serif">LAGOS STATE EDUCATION BOARD</text>
+</svg>

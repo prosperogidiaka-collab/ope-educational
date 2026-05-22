@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ope-educational",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-05-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Bind a Workers KV namespace named APP_DATA in the Cloudflare dashboard
+  // or uncomment and fill the IDs below if you prefer config-managed bindings.
+  // "kv_namespaces": [
+  //   {
+  //     "binding": "APP_DATA",
+  //     "id": "your-production-kv-namespace-id",
+  //     "preview_id": "your-preview-kv-namespace-id"
+  //   }
+  // ]
+}

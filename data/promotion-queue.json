@@ -1,0 +1,42 @@
+[
+  {
+    "regNumber": "OPE/SS2/001",
+    "studentName": "Adewale Maria",
+    "currentClass": "SS2 Gold",
+    "nextClass": "SS3 Gold",
+    "status": "ready",
+    "reason": "Academic and clearance conditions satisfied."
+  },
+  {
+    "regNumber": "OPE/SS2/002",
+    "studentName": "Okonkwo Daniel",
+    "currentClass": "SS2 Gold",
+    "nextClass": "SS3 Gold",
+    "status": "ready",
+    "reason": "Eligible for promotion at session rollover."
+  },
+  {
+    "regNumber": "OPE/SS2/003",
+    "studentName": "Yusuf Zainab",
+    "currentClass": "SS2 Gold",
+    "nextClass": "SS3 Gold",
+    "status": "hold",
+    "reason": "Incomplete result sheet and bursary block."
+  },
+  {
+    "regNumber": "OPE/SS2/004",
+    "studentName": "Nwosu Chidera",
+    "currentClass": "SS2 Gold",
+    "nextClass": "SS3 Gold",
+    "status": "ready",
+    "reason": "All approvals and required subjects completed."
+  },
+  {
+    "regNumber": "OPE/SS2/005",
+    "studentName": "Bello Idris",
+    "currentClass": "SS2 Gold",
+    "nextClass": "SS3 Gold",
+    "status": "ready",
+    "reason": "Promotion-ready with monitored attendance support."
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "sch_1",
+    "schoolCode": "OPE-SEC-001",
+    "name": "OPE EDUCATIONAL",
+    "status": "active",
+    "plan": "Growth",
+    "students": 1280,
+    "storageUsedGb": 8.6,
+    "storageQuotaGb": 20,
+    "renewalDate": "2026-08-31",
+    "portalSlug": "ope-educational",
+    "lastFollowUpAt": "2026-05-11T09:30:00.000Z",
+    "notes": "Current flagship tenant. Result publishing and staff account governance are active."
+  },
+  {
+    "id": "sch_2",
+    "schoolCode": "BHC-SEC-002",
+    "name": "Beacon Heights College",
+    "status": "trial",
+    "plan": "Trial",
+    "students": 420,
+    "storageUsedGb": 1.9,
+    "storageQuotaGb": 5,
+    "renewalDate": "2026-05-25",
+    "portalSlug": "beacon-heights",
+    "lastFollowUpAt": "2026-05-12T12:10:00.000Z",
+    "notes": "Trial school awaiting decision on paid onboarding after demo review."
+  },
+  {
+    "id": "sch_3",
+    "schoolCode": "NPA-SEC-003",
+    "name": "New Promise Academy",
+    "status": "expired",
+    "plan": "Starter",
+    "students": 690,
+    "storageUsedGb": 3.2,
+    "storageQuotaGb": 10,
+    "renewalDate": "2026-03-28",
+    "portalSlug": "new-promise",
+    "lastFollowUpAt": "2026-04-28T16:00:00.000Z",
+    "notes": "Subscription expired. Waiting for renewal confirmation before full reopen."
+  },
+  {
+    "id": "sch_4",
+    "schoolCode": "MCC-SEC-004",
+    "name": "Maranatha College",
+    "status": "suspended",
+    "plan": "Growth",
+    "students": 970,
+    "storageUsedGb": 5.8,
+    "storageQuotaGb": 20,
+    "renewalDate": "2026-02-11",
+    "portalSlug": "maranatha-college",
+    "lastFollowUpAt": "2026-05-10T08:45:00.000Z",
+    "notes": "Suspended pending billing reconciliation and data access review."
+  }
+]

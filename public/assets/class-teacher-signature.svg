@@ -1,0 +1,5 @@
+<svg width="360" height="120" viewBox="0 0 360 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M18 80C43 71 52 43 72 42C92 41 89 81 110 83C127 84 140 50 157 50C174 50 183 85 199 86C216 87 226 58 244 58C265 58 275 92 298 89C314 87 326 67 342 48" stroke="#0F4C5C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30 98H212" stroke="#C59D43" stroke-width="3" stroke-linecap="round"/>
+  <text x="36" y="116" fill="#0F4C5C" font-size="16" font-family="Georgia, serif">Class Teacher Signature</text>
+</svg>

@@ -1,0 +1,59 @@
+{
+  "schoolCode": "OPE-SEC-001",
+  "session": "2025/2026",
+  "term": "Second Term",
+  "publishState": "draft",
+  "updatedAt": "2026-05-16T08:40:00.000Z",
+  "updatedBy": "Mrs. Damilola Arinze",
+  "periods": [
+    {
+      "id": "period_1",
+      "label": "Period 1",
+      "startTime": "08:00",
+      "endTime": "08:40"
+    },
+    {
+      "id": "period_2",
+      "label": "Period 2",
+      "startTime": "08:40",
+      "endTime": "09:20"
+    },
+    {
+      "id": "period_3",
+      "label": "Period 3",
+      "startTime": "09:20",
+      "endTime": "10:00"
+    },
+    {
+      "id": "period_4",
+      "label": "Period 4",
+      "startTime": "10:20",
+      "endTime": "11:00"
+    },
+    {
+      "id": "period_5",
+      "label": "Period 5",
+      "startTime": "11:00",
+      "endTime": "11:40"
+    },
+    {
+      "id": "period_6",
+      "label": "Period 6",
+      "startTime": "11:40",
+      "endTime": "12:20"
+    },
+    {
+      "id": "period_7",
+      "label": "Period 7",
+      "startTime": "12:50",
+      "endTime": "13:30"
+    },
+    {
+      "id": "period_8",
+      "label": "Period 8",
+      "startTime": "13:30",
+      "endTime": "14:10"
+    }
+  ],
+  "entries": []
+}

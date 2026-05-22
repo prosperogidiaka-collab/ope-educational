@@ -1,0 +1,16 @@
+[
+  {
+    "id": "teacher_report_001",
+    "schoolCode": "OPE-SEC-001",
+    "teacherAccountId": "acct_teacher_001",
+    "teacherName": "Mr. Kalejaiye",
+    "category": "commendation",
+    "title": "Prompt score-entry and lesson delivery",
+    "body": "Mathematics lesson delivery and assessment turnaround for SS2 Gold were completed early this week. Keep the same pace as moderation closes.",
+    "showOnTeacherPortal": true,
+    "authorName": "Mrs. Damilola Arinze",
+    "authorRole": "school_admin",
+    "createdAt": "2026-05-15T12:15:00.000Z",
+    "updatedAt": "2026-05-15T12:15:00.000Z"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ss2_gold_2025_2026_second_term",
+    "className": "SS2 Gold",
+    "session": "2025/2026",
+    "term": "Second Term",
+    "locked": true,
+    "note": "Locked after review and publication checks for SS2 Gold.",
+    "lockedAt": "2026-04-10T15:42:00.000Z",
+    "lockedBy": "Mrs. Opeyemi Adewale"
+  },
+  {
+    "id": "ss2_silver_2025_2026_second_term",
+    "className": "SS2 Silver",
+    "session": "2025/2026",
+    "term": "Second Term",
+    "locked": true,
+    "note": "Locked after review and publication checks for SS2 Silver.",
+    "lockedAt": "2026-05-15T23:32:14.950Z",
+    "lockedBy": "Mrs. Damilola Arinze"
+  }
+]

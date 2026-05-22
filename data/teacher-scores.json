@@ -1,0 +1,470 @@
+{
+  "math": {
+    "assignmentId": "math",
+    "subjectCode": "MTH",
+    "subjectName": "Mathematics",
+    "className": "SS2 Gold",
+    "teacherName": "Mr. Kalejaiye",
+    "sheetStatus": "principal_approved",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "componentScores": {
+          "test1": 18,
+          "test2": 19,
+          "exam": 54
+        },
+        "test1": 18,
+        "test2": 19,
+        "exam": 54,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "principal_approved"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "componentScores": {
+          "test1": 17,
+          "test2": 18,
+          "exam": 52
+        },
+        "test1": 17,
+        "test2": 18,
+        "exam": 52,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "principal_approved"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "componentScores": {
+          "test1": 16,
+          "test2": 17,
+          "exam": 49
+        },
+        "test1": 16,
+        "test2": 17,
+        "exam": 49,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "principal_approved"
+      },
+      {
+        "regNumber": "OPE/SS2/005",
+        "fullName": "Bello Idris",
+        "componentScores": {
+          "test1": 15,
+          "test2": 15,
+          "exam": 44
+        },
+        "test1": 15,
+        "test2": 15,
+        "exam": 44,
+        "teacherComment": "Understands core concepts but needs more fluency.",
+        "status": "principal_approved"
+      },
+      {
+        "regNumber": "OPE/SS2/003",
+        "fullName": "Yusuf Zainab",
+        "componentScores": {
+          "test1": 14,
+          "test2": 15,
+          "exam": 44
+        },
+        "test1": 14,
+        "test2": 15,
+        "exam": 44,
+        "teacherComment": "Understands core concepts but needs more fluency.",
+        "status": "principal_approved"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "submittedAt": "2026-04-08T08:42:00.000Z",
+    "lastEditedBy": "Mrs. Damilola Arinze",
+    "lastEditedByRole": "school_admin",
+    "reviewNote": "School Admin adjusted raw scores from the dedicated override desk.",
+    "reviewedBy": "Mrs. Damilola Arinze",
+    "reviewedByRole": "school_admin",
+    "reviewedAt": "2026-05-15T14:40:28.229Z"
+  },
+  "eng": {
+    "assignmentId": "eng",
+    "subjectCode": "ENG",
+    "subjectName": "English Language",
+    "className": "SS2 Gold",
+    "teacherName": "Mrs. Hassan",
+    "sheetStatus": "submitted",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "test1": 16,
+        "test2": 18,
+        "exam": 52,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "test1": 15,
+        "test2": 16,
+        "exam": 46,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/003",
+        "fullName": "Yusuf Zainab",
+        "test1": 17,
+        "test2": 17,
+        "exam": 49,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "corrections_requested"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "test1": 16,
+        "test2": 16,
+        "exam": 49,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/005",
+        "fullName": "Bello Idris",
+        "test1": 14,
+        "test2": 15,
+        "exam": 43,
+        "teacherComment": "Understands core concepts but needs more fluency.",
+        "status": "locked"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "submittedAt": "2026-04-08T08:42:00.000Z"
+  },
+  "bio": {
+    "assignmentId": "bio",
+    "subjectCode": "BIO",
+    "subjectName": "Biology",
+    "className": "SS2 Gold",
+    "teacherName": "Mrs. Mordi",
+    "sheetStatus": "submitted",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "test1": 17,
+        "test2": 19,
+        "exam": 50,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "test1": 17,
+        "test2": 17,
+        "exam": 48,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/003",
+        "fullName": "Yusuf Zainab",
+        "test1": 15,
+        "test2": 16,
+        "exam": 45,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "corrections_requested"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "test1": 18,
+        "test2": 18,
+        "exam": 49,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/005",
+        "fullName": "Bello Idris",
+        "test1": 15,
+        "test2": 15,
+        "exam": 44,
+        "teacherComment": "Understands core concepts but needs more fluency.",
+        "status": "locked"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "submittedAt": "2026-04-08T08:42:00.000Z"
+  },
+  "chem": {
+    "assignmentId": "chem",
+    "subjectCode": "CHM",
+    "subjectName": "Chemistry",
+    "className": "SS2 Gold",
+    "teacherName": "Mr. Ugwu",
+    "sheetStatus": "submitted",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "test1": 18,
+        "test2": 18,
+        "exam": 53,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "test1": 15,
+        "test2": 16,
+        "exam": 47,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/003",
+        "fullName": "Yusuf Zainab",
+        "test1": 13,
+        "test2": 14,
+        "exam": 38,
+        "teacherComment": "Understands core concepts but needs more fluency.",
+        "status": "corrections_requested"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "test1": 17,
+        "test2": 18,
+        "exam": 50,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/005",
+        "fullName": "Bello Idris",
+        "test1": 14,
+        "test2": 15,
+        "exam": 42,
+        "teacherComment": "Understands core concepts but needs more fluency.",
+        "status": "locked"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "submittedAt": "2026-04-08T08:42:00.000Z"
+  },
+  "phy": {
+    "assignmentId": "phy",
+    "subjectCode": "PHY",
+    "subjectName": "Physics",
+    "className": "SS2 Gold",
+    "teacherName": "Mr. Alabi",
+    "sheetStatus": "draft",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "test1": 17,
+        "test2": 18,
+        "exam": 52,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "test1": 16,
+        "test2": 17,
+        "exam": 49,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/003",
+        "fullName": "Yusuf Zainab",
+        "test1": 14,
+        "test2": 15,
+        "exam": null,
+        "teacherComment": "Needs more guided reinforcement of core skills.",
+        "status": "corrections_requested"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "test1": 18,
+        "test2": 18,
+        "exam": 51,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/005",
+        "fullName": "Bello Idris",
+        "test1": 15,
+        "test2": 15,
+        "exam": 43,
+        "teacherComment": "Understands core concepts but needs more fluency.",
+        "status": "locked"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z"
+  },
+  "econ": {
+    "assignmentId": "econ",
+    "subjectCode": "ECO",
+    "subjectName": "Economics",
+    "className": "SS2 Gold",
+    "teacherName": "Mrs. Benson",
+    "sheetStatus": "submitted",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "test1": 16,
+        "test2": 17,
+        "exam": 50,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "test1": 16,
+        "test2": 16,
+        "exam": 46,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/003",
+        "fullName": "Yusuf Zainab",
+        "test1": 16,
+        "test2": 16,
+        "exam": 44,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "corrections_requested"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "test1": 15,
+        "test2": 16,
+        "exam": 46,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "submittedAt": "2026-04-08T08:42:00.000Z"
+  },
+  "crs": {
+    "assignmentId": "crs",
+    "subjectCode": "CRS",
+    "subjectName": "Christian Religious Studies",
+    "className": "SS2 Gold",
+    "teacherName": "Mrs. Odili",
+    "sheetStatus": "submitted",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "test1": 18,
+        "test2": 17,
+        "exam": 49,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "test1": 18,
+        "test2": 18,
+        "exam": 47,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "test1": 17,
+        "test2": 18,
+        "exam": 48,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/005",
+        "fullName": "Bello Idris",
+        "test1": 17,
+        "test2": 17,
+        "exam": 44,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "submittedAt": "2026-04-08T08:42:00.000Z"
+  },
+  "civ": {
+    "assignmentId": "civ",
+    "subjectCode": "CIV",
+    "subjectName": "Civic Education",
+    "className": "SS2 Gold",
+    "teacherName": "Mr. Ajayi",
+    "sheetStatus": "submitted",
+    "rows": [
+      {
+        "regNumber": "OPE/SS2/001",
+        "fullName": "Adewale Maria",
+        "test1": 18,
+        "test2": 18,
+        "exam": 50,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/002",
+        "fullName": "Okonkwo Daniel",
+        "test1": 17,
+        "test2": 18,
+        "exam": 46,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/003",
+        "fullName": "Yusuf Zainab",
+        "test1": 17,
+        "test2": 17,
+        "exam": 45,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "corrections_requested"
+      },
+      {
+        "regNumber": "OPE/SS2/004",
+        "fullName": "Nwosu Chidera",
+        "test1": 18,
+        "test2": 18,
+        "exam": 47,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      },
+      {
+        "regNumber": "OPE/SS2/005",
+        "fullName": "Bello Idris",
+        "test1": 16,
+        "test2": 16,
+        "exam": 44,
+        "teacherComment": "Shows deep mastery of key concepts.",
+        "status": "locked"
+      }
+    ],
+    "updatedAt": "2026-05-17T21:03:29.584Z",
+    "submittedAt": "2026-04-08T08:42:00.000Z"
+  }
+}

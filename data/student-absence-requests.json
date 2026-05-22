@@ -1,0 +1,34 @@
+[
+  {
+    "id": "absence_req_001",
+    "schoolCode": "OPE-SEC-001",
+    "regNumber": "OPE/SS2/002",
+    "studentName": "Okonkwo Daniel",
+    "className": "SS2 Gold",
+    "requestedFrom": "2026-05-19",
+    "requestedTo": "2026-05-21",
+    "reason": "Family travel for a medical review appointment outside Lagos.",
+    "note": "Parent informed the class teacher and requested the missed notes on return.",
+    "status": "approved",
+    "requestedAt": "2026-05-14T18:10:00.000Z",
+    "decisionNote": "Approved from the Students Affairs attendance desk.",
+    "decidedAt": "2026-05-15T23:20:38.732Z",
+    "decidedBy": "Mrs. Folasade Adekunle"
+  },
+  {
+    "id": "absence_req_002",
+    "schoolCode": "OPE-SEC-001",
+    "regNumber": "OPE/SS2/001",
+    "studentName": "Adewale Maria",
+    "className": "SS2 Gold",
+    "requestedFrom": "2026-05-06",
+    "requestedTo": "2026-05-06",
+    "reason": "Representing the school at an inter-school science fair.",
+    "note": "Approved as an official school outing.",
+    "status": "approved",
+    "requestedAt": "2026-05-05T16:00:00.000Z",
+    "decidedAt": "2026-05-05T19:30:00.000Z",
+    "decidedBy": "Mrs. Damilola Arinze",
+    "decisionNote": "Approved and copied to the class teacher for attendance marking."
+  }
+]

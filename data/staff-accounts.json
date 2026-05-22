@@ -1,0 +1,306 @@
+[
+  {
+    "id": "acct_super_admin_001",
+    "schoolCode": "PLATFORM",
+    "fullName": "Prosper Ogidiaka",
+    "email": "prosperogidiaka@gmail.com",
+    "password": "7767737Prosper",
+    "role": "super_admin",
+    "status": "active",
+    "registeredBy": "System",
+    "canRegisterTeachers": true,
+    "canDisableTeachers": true,
+    "canRegisterStudents": true,
+    "assignedArms": [],
+    "assignedSubjects": [],
+    "classTeacherArms": [],
+    "lastAction": "Platform-wide account governance enabled.",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_principal_001",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Damilola Arinze",
+    "email": "admin@ope.edu.ng",
+    "role": "school_admin",
+    "status": "active",
+    "registeredBy": "Super Admin",
+    "canRegisterTeachers": true,
+    "canDisableTeachers": true,
+    "assignedArms": [
+      "SS2 Gold",
+      "SS2 Silver"
+    ],
+    "assignedSubjects": [],
+    "classTeacherArms": [],
+    "lastAction": "Updated staff permissions and publication controls for SS2 Gold.",
+    "password": "Admin@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_hod_001",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Dr. Tunde Balogun",
+    "email": "tbalogun@ope.edu.ng",
+    "role": "hod",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "canRegisterTeachers": true,
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [],
+    "classTeacherArms": [],
+    "lastAction": "Returned one Chemistry sheet for correction.",
+    "password": "Hod@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_registrar_001",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Folasade Adekunle",
+    "email": "registrar@ope.edu.ng",
+    "role": "registrar",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "canRegisterTeachers": true,
+    "canRegisterStudents": true,
+    "assignedArms": [
+      "SS2 Gold",
+      "SS2 Silver"
+    ],
+    "assignedSubjects": [],
+    "classTeacherArms": [],
+    "lastAction": "Generated 5 student portal credentials for the term.",
+    "password": "Registrar@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_001",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mr. Kalejaiye",
+    "email": "mkalejaiye@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "Mathematics"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Updated Mathematics exam totals for SS2 Gold.",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_002",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Folake Aina",
+    "email": "faina@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Dr. Tunde Balogun",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [],
+    "classTeacherArms": [
+      "SS2 Gold"
+    ],
+    "lastAction": "Confirmed attendance and class teacher remarks for SS2 Gold.",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_003",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mr. Joseph Olatunji",
+    "email": "jolaatunji@ope.edu.ng",
+    "role": "teacher",
+    "status": "disabled",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Silver"
+    ],
+    "assignedSubjects": [],
+    "classTeacherArms": [
+      "SS2 Silver"
+    ],
+    "lastAction": "Account disabled pending reassignment by the school admin.",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_010",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Hassan",
+    "email": "hassan@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "English Language"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to English Language (SS2 Gold).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_011",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Mordi",
+    "email": "mordi@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "Biology"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Biology (SS2 Gold).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_012",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mr. Ugwu",
+    "email": "ugwu@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "Chemistry"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Chemistry (SS2 Gold).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_013",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mr. Alabi",
+    "email": "alabi@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "Physics"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Physics (SS2 Gold).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_014",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Benson",
+    "email": "benson@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "Economics"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Economics (SS2 Gold).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_015",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Odili",
+    "email": "odili@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "Christian Religious Studies"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Christian Religious Studies (SS2 Gold).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_016",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mr. Ajayi",
+    "email": "ajayi@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Gold"
+    ],
+    "assignedSubjects": [
+      "Civic Education"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Civic Education (SS2 Gold).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_017",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mrs. Nnamani",
+    "email": "nnamani@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Silver"
+    ],
+    "assignedSubjects": [
+      "Literature"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Literature (SS2 Silver).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  },
+  {
+    "id": "acct_teacher_018",
+    "schoolCode": "OPE-SEC-001",
+    "fullName": "Mr. Danjuma",
+    "email": "danjuma@ope.edu.ng",
+    "role": "teacher",
+    "status": "active",
+    "registeredBy": "Mrs. Damilola Arinze",
+    "assignedArms": [
+      "SS2 Silver"
+    ],
+    "assignedSubjects": [
+      "Government"
+    ],
+    "classTeacherArms": [],
+    "lastAction": "Assigned to Government (SS2 Silver).",
+    "password": "Teacher@123",
+    "grantedSchoolCodes": []
+  }
+]

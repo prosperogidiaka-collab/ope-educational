@@ -1,0 +1,46 @@
+{
+  "session": "2025/2026",
+  "term": "Second Term",
+  "examType": "Terminal Examination",
+  "section": "senior",
+  "gradeScaleName": "Senior A-F scale",
+  "publishScope": "Publish by class, arm, and term",
+  "scoreComponents": [
+    {
+      "key": "test1",
+      "label": "Test 1",
+      "maxScore": 20,
+      "weight": 20,
+      "frozen": true,
+      "closesAt": "2026-02-28T23:59:00.000Z"
+    },
+    {
+      "key": "test2",
+      "label": "Assignment / Test 2",
+      "maxScore": 20,
+      "weight": 20,
+      "frozen": true,
+      "closesAt": "2026-03-25T23:59:00.000Z"
+    },
+    {
+      "key": "exam",
+      "label": "Exam",
+      "maxScore": 60,
+      "weight": 60,
+      "frozen": false,
+      "closesAt": "2026-04-18T23:59:00.000Z"
+    }
+  ],
+  "rankingPolicy": {
+    "tieBreakers": [
+      "weightedAverage",
+      "mathematics",
+      "english",
+      "attendance"
+    ],
+    "excludeIncompleteStudents": true,
+    "minimumSubjectCount": 7,
+    "roundingMode": "Round to 2 decimal places",
+    "missingScoresCountAsZero": false
+  }
+}

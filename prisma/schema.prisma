@@ -1,0 +1,347 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  PRINCIPAL
+  TEACHER
+  HOD
+  CLASS_TEACHER
+  BURSAR
+  MANAGER
+  PARENT
+}
+
+enum ResultStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  CORRECTIONS_REQUESTED
+  HOD_APPROVED
+  PRINCIPAL_APPROVED
+  PUBLISHED
+  LOCKED
+  ARCHIVED
+}
+
+enum ApprovalStage {
+  TEACHER_SUBMISSION
+  HOD_REVIEW
+  CLASS_TEACHER_REVIEW
+  BURSARY_CLEARANCE
+  MANAGEMENT_AUDIT
+  PRINCIPAL_APPROVAL
+}
+
+enum ApprovalDecision {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum TemplateMode {
+  MODERN
+  CLASSIC
+  DETAILED
+}
+
+enum AssetKind {
+  SCHOOL_LOGO
+  STUDENT_PHOTO
+  PRINCIPAL_SIGNATURE
+}
+
+enum SubscriptionStatus {
+  TRIAL
+  ACTIVE
+  EXPIRED
+  SUSPENDED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum FeeStatus {
+  CLEARED
+  OUTSTANDING
+}
+
+model School {
+  id                 String               @id @default(cuid())
+  name               String
+  slug               String               @unique
+  address            String
+  motto              String?
+  principalName      String?
+  session            String?
+  term               String?
+  subscriptionStatus SubscriptionStatus   @default(TRIAL)
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  users              User[]
+  classes            ClassRoom[]
+  subjects           Subject[]
+  students           Student[]
+  coupons            Coupon[]
+  gradeBands         GradeBand[]
+  assets             Asset[]
+  termResults        TermResult[]
+  auditLogs          AuditLog[]
+}
+
+model User {
+  id              String           @id @default(cuid())
+  schoolId        String?
+  school          School?          @relation(fields: [schoolId], references: [id])
+  fullName        String
+  email           String           @unique
+  passwordHash    String
+  role            UserRole
+  assignments     TeacherAssignment[]
+  auditLogs       AuditLog[]       @relation("AuditActor")
+  approvalRecords ApprovalRecord[] @relation("ApprovalActor")
+  requestedUnlocks UnlockRequest[] @relation("UnlockRequestedBy")
+  approvedUnlocks  UnlockRequest[] @relation("UnlockApprovedBy")
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model ClassRoom {
+  id                 String              @id @default(cuid())
+  schoolId           String
+  school             School              @relation(fields: [schoolId], references: [id])
+  name               String
+  level              String
+  arm                String
+  students           Student[]
+  teacherAssignments TeacherAssignment[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  @@unique([schoolId, name])
+}
+
+model Subject {
+  id          String              @id @default(cuid())
+  schoolId    String
+  school      School              @relation(fields: [schoolId], references: [id])
+  name        String
+  code        String
+  weight      Int                 @default(1)
+  assignments TeacherAssignment[]
+  resultEntries ResultEntry[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@unique([schoolId, code])
+}
+
+model TeacherAssignment {
+  id           String    @id @default(cuid())
+  teacherId    String
+  teacher      User      @relation(fields: [teacherId], references: [id])
+  subjectId    String
+  subject      Subject   @relation(fields: [subjectId], references: [id])
+  classRoomId  String
+  classRoom    ClassRoom @relation(fields: [classRoomId], references: [id])
+  resultEntries ResultEntry[]
+  createdAt    DateTime  @default(now())
+
+  @@unique([teacherId, subjectId, classRoomId])
+}
+
+model Asset {
+  id             String   @id @default(cuid())
+  schoolId       String
+  school         School   @relation(fields: [schoolId], references: [id])
+  kind           AssetKind
+  fileUrl        String
+  publicId       String?
+  studentPhotoFor Student? @relation("StudentPhoto")
+  createdAt      DateTime @default(now())
+}
+
+model Student {
+  id                     String      @id @default(cuid())
+  schoolId               String
+  school                 School      @relation(fields: [schoolId], references: [id])
+  classRoomId            String
+  classRoom              ClassRoom   @relation(fields: [classRoomId], references: [id])
+  regNumber              String
+  fullName               String
+  guardianName           String?
+  gender                 Gender
+  house                  String?
+  attendanceDays         Int         @default(0)
+  absentDays             Int         @default(0)
+  lateDays               Int         @default(0)
+  possibleAttendanceDays Int         @default(0)
+  photoAssetId           String?     @unique
+  photoAsset             Asset?      @relation("StudentPhoto", fields: [photoAssetId], references: [id])
+  teacherRemark          String?
+  classTeacherComment    String?
+  principalComment       String?
+  improvementComment     String?
+  feeStatus              FeeStatus    @default(CLEARED)
+  coupons                Coupon[]
+  termResults            TermResult[]
+  createdAt              DateTime    @default(now())
+  updatedAt              DateTime    @updatedAt
+
+  @@unique([schoolId, regNumber])
+}
+
+model GradeBand {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  label     String
+  minScore  Int
+  maxScore  Int
+  points    Int
+  remark    String
+  colorHex  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([schoolId, label])
+}
+
+model TermResult {
+  id              String           @id @default(cuid())
+  schoolId        String
+  school          School           @relation(fields: [schoolId], references: [id])
+  studentId       String
+  student         Student          @relation(fields: [studentId], references: [id])
+  session         String
+  term            String
+  status          ResultStatus     @default(DRAFT)
+  templateMode    TemplateMode     @default(MODERN)
+  totalScore      Float?
+  averageScore    Float?
+  weightedAverage Float?
+  position        Int?
+  qrToken         String           @unique
+  verificationId  String?          @unique
+  nextResumptionDate DateTime?
+  publishedAt     DateTime?
+  lockedAt        DateTime?
+  resultEntries   ResultEntry[]
+  approvalRecords ApprovalRecord[]
+  auditLogs       AuditLog[]
+  unlockRequests  UnlockRequest[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@unique([studentId, session, term])
+}
+
+model ResultEntry {
+  id                  String            @id @default(cuid())
+  termResultId        String
+  termResult          TermResult        @relation(fields: [termResultId], references: [id])
+  subjectId           String
+  subject             Subject           @relation(fields: [subjectId], references: [id])
+  teacherAssignmentId String?
+  teacherAssignment   TeacherAssignment? @relation(fields: [teacherAssignmentId], references: [id])
+  test1               Int               @default(0)
+  test2               Int               @default(0)
+  exam                Int               @default(0)
+  total               Int               @default(0)
+  gradeLabel          String?
+  teacherComment      String?
+  managerComment      String?
+  auditLogs           AuditLog[]
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  @@unique([termResultId, subjectId])
+}
+
+model ApprovalRecord {
+  id           String           @id @default(cuid())
+  termResultId String
+  termResult   TermResult       @relation(fields: [termResultId], references: [id])
+  stage        ApprovalStage
+  actorId      String?
+  actor        User?            @relation("ApprovalActor", fields: [actorId], references: [id])
+  decision     ApprovalDecision @default(PENDING)
+  note         String?
+  reason       String?
+  actedAt      DateTime?
+  createdAt    DateTime         @default(now())
+}
+
+model Coupon {
+  id         String   @id @default(cuid())
+  schoolId   String
+  school     School   @relation(fields: [schoolId], references: [id])
+  studentId  String
+  student    Student  @relation(fields: [studentId], references: [id])
+  code       String   @unique
+  session    String?
+  term       String?
+  maxUses    Int      @default(3)
+  usedCount  Int      @default(0)
+  active     Boolean  @default(true)
+  oneTimeAccess Boolean @default(false)
+  failedAttempts Int   @default(0)
+  revokedReason String?
+  expiresAt  DateTime
+  lastUsedAt DateTime?
+  portalAccessLogs PortalAccessLog[]
+  createdAt  DateTime @default(now())
+}
+
+model AuditLog {
+  id            String      @id @default(cuid())
+  schoolId      String
+  school        School      @relation(fields: [schoolId], references: [id])
+  actorId       String?
+  actor         User?       @relation("AuditActor", fields: [actorId], references: [id])
+  termResultId  String?
+  termResult    TermResult? @relation(fields: [termResultId], references: [id])
+  resultEntryId String?
+  resultEntry   ResultEntry? @relation(fields: [resultEntryId], references: [id])
+  eventType     String
+  targetLabel   String
+  previousValue Json?
+  nextValue     Json?
+  note          String?
+  device        String?
+  ipAddress     String?
+  createdAt     DateTime    @default(now())
+}
+
+model UnlockRequest {
+  id            String     @id @default(cuid())
+  termResultId  String
+  termResult    TermResult @relation(fields: [termResultId], references: [id])
+  requestedById String?
+  requestedBy   User?      @relation("UnlockRequestedBy", fields: [requestedById], references: [id])
+  approvedById  String?
+  approvedBy    User?      @relation("UnlockApprovedBy", fields: [approvedById], references: [id])
+  reason        String
+  status        ApprovalDecision @default(PENDING)
+  requestedAt   DateTime   @default(now())
+  approvedAt    DateTime?
+}
+
+model PortalAccessLog {
+  id         String   @id @default(cuid())
+  couponId   String
+  coupon     Coupon   @relation(fields: [couponId], references: [id])
+  action     String
+  device     String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+}
