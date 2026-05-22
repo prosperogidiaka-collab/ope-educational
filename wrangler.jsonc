@@ -11,13 +11,10 @@
   "observability": {
     "enabled": true
   },
-  // Bind a Workers KV namespace named APP_DATA in the Cloudflare dashboard
-  // or uncomment and fill the IDs below if you prefer config-managed bindings.
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "APP_DATA",
-  //     "id": "your-production-kv-namespace-id",
-  //     "preview_id": "your-preview-kv-namespace-id"
-  //   }
-  // ]
+  "kv_namespaces": [
+    {
+      "binding": "APP_DATA",
+      "id": "360ab37af8914c6f9f99ab60efc7f171"
+    }
+  ]
 }
