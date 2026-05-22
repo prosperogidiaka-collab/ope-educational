@@ -1,34 +1,15 @@
-import { AppShell } from "@/components/app-shell";
-import { SuperAdminBoard } from "@/components/super-admin-board";
-import { getCurrentStaffAccount } from "@/lib/auth-server";
-import { notifications } from "@/lib/demo-data";
-import { readPlatformSettings } from "@/lib/platform-settings-store";
-import { readSchoolPortfolio } from "@/lib/school-portfolio-store";
-import { readVisibleStaffAccounts } from "@/lib/staff-accounts-store";
+import { SuperAdminPage } from "@/components/super-admin-page";
 
 export const dynamic = "force-dynamic";
 
-export default async function SuperAdminPage() {
-  const currentAccount = await getCurrentStaffAccount();
-  const [staffAccounts, schools, platformSettings] = await Promise.all([
-    readVisibleStaffAccounts(currentAccount),
-    readSchoolPortfolio(),
-    readPlatformSettings(),
-  ]);
-
+export default async function SuperAdminOverviewPage() {
   return (
-    <AppShell
+    <SuperAdminPage
       activeHref="/dashboard/super-admin"
       eyebrow="Super Admin"
-      title="Owner operations and subscription visibility"
-      description="Manage tenant schools, see plan status at a glance, monitor portfolio activity, and control subscription-side operations."
-    >
-      <SuperAdminBoard
-        schools={schools}
-        notifications={notifications}
-        accounts={staffAccounts}
-        platformSettings={platformSettings}
-      />
-    </AppShell>
+      title="Platform operations home"
+      description="Use the dedicated pages below to manage schools, onboarding, school-admin accounts, platform switches, and owner activity without cramming everything into one screen."
+      view="overview"
+    />
   );
 }

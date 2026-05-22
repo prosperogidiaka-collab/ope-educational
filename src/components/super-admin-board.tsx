@@ -1,17 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { formatDateOnly, resultStatusLabel } from "@/lib/calculations";
 import { isSchoolAdminRole, ROLE_LABEL } from "@/lib/auth";
-import type {
-  NotificationItem,
-  PlatformSettings,
-  SchoolPortfolioItem,
-  StaffAccount,
-} from "@/lib/types";
+import type { NotificationItem, PlatformSettings, SchoolPortfolioItem, StaffAccount } from "@/lib/types";
+
+export type SuperAdminView =
+  | "overview"
+  | "schools"
+  | "onboarding"
+  | "adminAccounts"
+  | "platformSettings"
+  | "activity";
 
 interface SuperAdminBoardProps {
+  view: SuperAdminView;
   schools: SchoolPortfolioItem[];
   notifications: NotificationItem[];
   accounts: StaffAccount[];
@@ -46,6 +51,59 @@ const BLANK_CREATE_SCHOOL: CreateSchoolDraft = {
   schoolAdminEmail: "",
 };
 
+const VIEW_HELP_COPY: Record<SuperAdminView, string> = {
+  overview:
+    "Use the separate pages below instead of managing the entire platform from one crowded screen.",
+  schools:
+    "Each school now sits in its own full-width editing card so subscription and follow-up details fit cleanly.",
+  onboarding:
+    "School onboarding now has its own page so the create-school form does not fight for space with other controls.",
+  adminAccounts:
+    "School-admin account status and access scope now live on their own page instead of being mixed with tenant editing.",
+  platformSettings:
+    "App-wide switches are separated from tenant operations so platform decisions are easier to review and save.",
+  activity:
+    "Recent owner activity is now isolated from forms and editors, making follow-up signals easier to scan.",
+};
+
+const OVERVIEW_LINKS: Array<{
+  href: string;
+  label: string;
+  caption: string;
+  eyebrow: string;
+}> = [
+  {
+    href: "/dashboard/super-admin/schools",
+    label: "School Portfolio",
+    caption: "Review every tenant school, subscription, storage figure, and follow-up note in a roomy list view.",
+    eyebrow: "Tenants",
+  },
+  {
+    href: "/dashboard/super-admin/onboarding",
+    label: "Create School",
+    caption: "Provision a new school and its school-admin login without mixing the form with other platform controls.",
+    eyebrow: "Onboarding",
+  },
+  {
+    href: "/dashboard/super-admin/admin-accounts",
+    label: "School Admins",
+    caption: "Manage account status and any cross-school access exceptions from a dedicated governance page.",
+    eyebrow: "Accounts",
+  },
+  {
+    href: "/dashboard/super-admin/platform-settings",
+    label: "Platform Settings",
+    caption: "Control maintenance mode, onboarding, portal access, and owner broadcast from a single settings page.",
+    eyebrow: "Settings",
+  },
+  {
+    href: "/dashboard/super-admin/activity",
+    label: "Owner Activity",
+    caption: "Track recent support, billing, and publication signals without form clutter.",
+    eyebrow: "Signals",
+  },
+];
+
 function schoolStatusTone(status: SchoolPortfolioItem["status"]) {
   if (status === "active") {
     return "status-approved";
@@ -74,6 +132,7 @@ function addDays(dateText: string, days: number) {
 }
 
 export function SuperAdminBoard({
+  view,
   schools,
   notifications,
   accounts,
@@ -86,12 +145,10 @@ export function SuperAdminBoard({
   const [settings, setSettings] = useState(platformSettings);
   const [createDraft, setCreateDraft] = useState<CreateSchoolDraft>(BLANK_CREATE_SCHOOL);
   const [accountScopeDrafts, setAccountScopeDrafts] = useState<Record<string, string>>(
-    Object.fromEntries(
-      accounts.map((account) => [account.id, (account.grantedSchoolCodes ?? []).join(", ")]),
-    ),
+    Object.fromEntries(accounts.map((account) => [account.id, (account.grantedSchoolCodes ?? []).join(", ")])),
   );
   const [feedback, setFeedback] = useState(
-    "Platform controls are live. Create schools, update subscriptions, manage school-admin accounts, and save app-wide settings here.",
+    "Platform controls are live. The super-admin workspace is now split into separate pages so each task has room to breathe.",
   );
   const [busyKey, setBusyKey] = useState<string | null>(null);
 
@@ -130,6 +187,8 @@ export function SuperAdminBoard({
     }),
     [localSchools],
   );
+  const spotlightSchools = useMemo(() => localSchools.slice(0, 3), [localSchools]);
+  const recentNotifications = useMemo(() => notifications.slice(0, 5), [notifications]);
 
   function updateLocalSchool<K extends keyof SchoolPortfolioItem>(
     schoolId: string,
@@ -195,7 +254,9 @@ export function SuperAdminBoard({
 
   async function createSchool() {
     if (!settings.allowSchoolOnboarding) {
-      setFeedback("School onboarding is currently disabled in platform settings. Re-enable it before creating a new tenant.");
+      setFeedback(
+        "School onboarding is currently disabled in platform settings. Re-enable it before creating a new tenant.",
+      );
       return;
     }
 
@@ -221,12 +282,15 @@ export function SuperAdminBoard({
         throw new Error(payload.error ?? `Request failed with ${response.status}`);
       }
 
-      setLocalSchools((current) => [...current, payload.school!]);
-      setLocalAccounts((current) => [...current, payload.account!]);
-      setAccountScopeDrafts((current) => ({ ...current, [payload.account!.id]: "" }));
+      const createdSchool = payload.school;
+      const createdAccount = payload.account;
+
+      setLocalSchools((current) => [...current, createdSchool]);
+      setLocalAccounts((current) => [...current, createdAccount]);
+      setAccountScopeDrafts((current) => ({ ...current, [createdAccount.id]: "" }));
       setCreateDraft(BLANK_CREATE_SCHOOL);
       setFeedback(
-        `${payload.school.name} was created with ${payload.account.fullName} as the school admin. Default password: Admin@123.`,
+        `${createdSchool.name} was created with ${createdAccount.fullName} as the school admin. Default password: Admin@123.`,
       );
     } catch (error) {
       setFeedback(error instanceof Error ? error.message : "Could not create the school right now.");
@@ -316,9 +380,7 @@ export function SuperAdminBoard({
       <section className="surface-card">
         <div className="callout-banner">
           <strong>{feedback}</strong>
-          <p className="muted">
-            Schools, subscriptions, school-admin status, granted cross-school scope, and platform switches now save as live platform data.
-          </p>
+          <p className="muted">{VIEW_HELP_COPY[view]}</p>
         </div>
       </section>
 
@@ -345,8 +407,99 @@ export function SuperAdminBoard({
         </article>
       </section>
 
-      <section className="grid-layout two-wide">
-        <article className="surface-card">
+      {view === "overview" ? (
+        <>
+          <section className="surface-card">
+            <div className="section-head">
+              <div>
+                <p className="eyebrow">Workspace Map</p>
+                <h3>Open only the super-admin feature you need</h3>
+              </div>
+            </div>
+            <div className="feature-nav-grid">
+              {OVERVIEW_LINKS.map((link) => (
+                <Link key={link.href} href={link.href} className="feature-nav-card">
+                  <p className="eyebrow">{link.eyebrow}</p>
+                  <strong>{link.label}</strong>
+                  <span>{link.caption}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="grid-layout two-wide">
+            <article className="surface-card">
+              <div className="section-head">
+                <div>
+                  <p className="eyebrow">School Snapshot</p>
+                  <h3>Top schools needing follow-up</h3>
+                </div>
+                <Link href="/dashboard/super-admin/schools" className="secondary-button">
+                  Open school portfolio
+                </Link>
+              </div>
+              <div className="super-admin-list">
+                {spotlightSchools.map((school) => (
+                  <article key={school.id} className="leader-card feature">
+                    <div className="audit-header">
+                      <div>
+                        <strong>{school.name}</strong>
+                        <p className="muted">
+                          {school.schoolCode} - {school.portalSlug}
+                        </p>
+                      </div>
+                      <span className={`status-pill ${schoolStatusTone(school.status)}`}>
+                        {resultStatusLabel(school.status)}
+                      </span>
+                    </div>
+                    <div className="inline-metrics compact">
+                      <div>
+                        <span>Plan</span>
+                        <strong>{school.plan}</strong>
+                      </div>
+                      <div>
+                        <span>Renewal</span>
+                        <strong>{school.renewalDate}</strong>
+                      </div>
+                      <div>
+                        <span>Students</span>
+                        <strong>{school.students}</strong>
+                      </div>
+                    </div>
+                    <p className="muted">{school.notes}</p>
+                  </article>
+                ))}
+              </div>
+            </article>
+
+            <article className="surface-card">
+              <div className="section-head">
+                <div>
+                  <p className="eyebrow">Owner Activity</p>
+                  <h3>Recent platform signals</h3>
+                </div>
+                <Link href="/dashboard/super-admin/activity" className="secondary-button">
+                  Open activity page
+                </Link>
+              </div>
+              <div className="timeline">
+                {recentNotifications.map((item) => (
+                  <article key={item.id} className="timeline-item">
+                    <strong>{item.title}</strong>
+                    <p>{item.message}</p>
+                    <span>
+                      {item.audience} - {formatDateOnly(item.timestamp)}
+                    </span>
+                  </article>
+                ))}
+              </div>
+            </article>
+          </section>
+        </>
+      ) : null}
+
+      {view === "platformSettings" ? (
+        <section className="surface-card">
           <div className="section-head">
             <div>
               <p className="eyebrow">Platform Controls</p>
@@ -361,9 +514,8 @@ export function SuperAdminBoard({
               {busyKey === "platform-settings" ? "Saving..." : "Save platform settings"}
             </button>
           </div>
-          <div className="stack-list">
-            <label className="comparison-card">
-              <span>Maintenance mode</span>
+          <div className="super-admin-checkbox-grid">
+            <label className="checkbox-field">
               <input
                 type="checkbox"
                 checked={settings.maintenanceMode}
@@ -374,9 +526,9 @@ export function SuperAdminBoard({
                   }))
                 }
               />
+              Maintenance mode
             </label>
-            <label className="comparison-card">
-              <span>Allow school onboarding</span>
+            <label className="checkbox-field">
               <input
                 type="checkbox"
                 checked={settings.allowSchoolOnboarding}
@@ -387,9 +539,9 @@ export function SuperAdminBoard({
                   }))
                 }
               />
+              Allow school onboarding
             </label>
-            <label className="comparison-card">
-              <span>Allow student portal access</span>
+            <label className="checkbox-field">
               <input
                 type="checkbox"
                 checked={settings.allowPortalAccess}
@@ -400,7 +552,10 @@ export function SuperAdminBoard({
                   }))
                 }
               />
+              Allow student portal access
             </label>
+          </div>
+          <div className="form-grid">
             <label>
               Support email
               <input
@@ -413,7 +568,7 @@ export function SuperAdminBoard({
                 }
               />
             </label>
-            <label>
+            <label className="form-span-2">
               Owner broadcast
               <textarea
                 value={settings.ownerBroadcast}
@@ -427,9 +582,11 @@ export function SuperAdminBoard({
               />
             </label>
           </div>
-        </article>
+        </section>
+      ) : null}
 
-        <article className="surface-card">
+      {view === "onboarding" ? (
+        <section className="surface-card">
           <div className="section-head">
             <div>
               <p className="eyebrow">Create School</p>
@@ -444,7 +601,7 @@ export function SuperAdminBoard({
               {busyKey === "create-school" ? "Creating..." : "Create school"}
             </button>
           </div>
-          <div className="grid-layout two-wide">
+          <div className="form-grid">
             <label>
               School name
               <input
@@ -538,285 +695,290 @@ export function SuperAdminBoard({
                 }
               />
             </label>
+            <label className="form-span-2">
+              Provisioning note
+              <textarea
+                value={createDraft.notes}
+                rows={4}
+                onChange={(event) => setCreateDraft((current) => ({ ...current, notes: event.target.value }))}
+              />
+            </label>
           </div>
-          <label>
-            Provisioning note
-            <textarea
-              value={createDraft.notes}
-              rows={3}
-              onChange={(event) => setCreateDraft((current) => ({ ...current, notes: event.target.value }))}
+        </section>
+      ) : null}
+
+      {view === "schools" ? (
+        <section className="surface-card">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">School Portfolio</p>
+              <h3>Live tenant schools, subscription state, and follow-up notes</h3>
+            </div>
+          </div>
+
+          <div className="toolbar super-admin-toolbar">
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search by school, code, or portal slug"
             />
-          </label>
-        </article>
-      </section>
-
-      <section className="surface-card">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">School Portfolio</p>
-            <h3>Live tenant schools, subscription state, and follow-up notes</h3>
+            <select
+              value={statusFilter}
+              onChange={(event) => setStatusFilter(event.target.value as SchoolPortfolioItem["status"] | "all")}
+            >
+              <option value="all">All statuses</option>
+              <option value="active">Active</option>
+              <option value="trial">Trial</option>
+              <option value="expired">Expired</option>
+              <option value="suspended">Suspended</option>
+            </select>
           </div>
-        </div>
 
-        <div className="toolbar">
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search by school, code, or portal slug"
-          />
-          <select
-            value={statusFilter}
-            onChange={(event) => setStatusFilter(event.target.value as SchoolPortfolioItem["status"] | "all")}
-          >
-            <option value="all">All statuses</option>
-            <option value="active">Active</option>
-            <option value="trial">Trial</option>
-            <option value="expired">Expired</option>
-            <option value="suspended">Suspended</option>
-          </select>
-        </div>
+          <div className="super-admin-list">
+            {filteredSchools.map((school) => {
+              const schoolAdminAccount = schoolAdminAccounts.find(
+                (account) => account.schoolCode === school.schoolCode,
+              );
 
-        <div className="card-grid">
-          {filteredSchools.map((school) => {
-            const schoolAdminAccount = schoolAdminAccounts.find(
-              (account) => account.schoolCode === school.schoolCode,
-            );
+              return (
+                <article key={school.id} className="leader-card feature super-admin-school-card">
+                  <div className="audit-header">
+                    <div>
+                      <strong>{school.name}</strong>
+                      <p className="muted">
+                        {school.schoolCode} - {school.portalSlug}
+                      </p>
+                    </div>
+                    <span className={`status-pill ${schoolStatusTone(school.status)}`}>
+                      {resultStatusLabel(school.status)}
+                    </span>
+                  </div>
 
-            return (
-              <article key={school.id} className="leader-card feature">
+                  <div className="form-grid">
+                    <label>
+                      Plan
+                      <input
+                        value={school.plan}
+                        onChange={(event) => updateLocalSchool(school.id, "plan", event.target.value)}
+                      />
+                    </label>
+                    <label>
+                      Status
+                      <select
+                        value={school.status}
+                        onChange={(event) =>
+                          updateLocalSchool(
+                            school.id,
+                            "status",
+                            event.target.value as SchoolPortfolioItem["status"],
+                          )
+                        }
+                      >
+                        <option value="active">Active</option>
+                        <option value="trial">Trial</option>
+                        <option value="expired">Expired</option>
+                        <option value="suspended">Suspended</option>
+                      </select>
+                    </label>
+                    <label>
+                      Students
+                      <input
+                        type="number"
+                        min={0}
+                        value={school.students}
+                        onChange={(event) =>
+                          updateLocalSchool(school.id, "students", Number(event.target.value) || 0)
+                        }
+                      />
+                    </label>
+                    <label>
+                      Storage used (GB)
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.1"
+                        value={school.storageUsedGb}
+                        onChange={(event) =>
+                          updateLocalSchool(school.id, "storageUsedGb", Number(event.target.value) || 0)
+                        }
+                      />
+                    </label>
+                    <label>
+                      Storage quota (GB)
+                      <input
+                        type="number"
+                        min={1}
+                        step="0.1"
+                        value={school.storageQuotaGb}
+                        onChange={(event) =>
+                          updateLocalSchool(school.id, "storageQuotaGb", Number(event.target.value) || 1)
+                        }
+                      />
+                    </label>
+                    <label>
+                      Renewal date
+                      <input
+                        type="date"
+                        value={school.renewalDate}
+                        onChange={(event) => updateLocalSchool(school.id, "renewalDate", event.target.value)}
+                      />
+                    </label>
+                    <label className="form-span-2">
+                      Follow-up note
+                      <textarea
+                        rows={4}
+                        value={school.notes}
+                        onChange={(event) => updateLocalSchool(school.id, "notes", event.target.value)}
+                      />
+                    </label>
+                  </div>
+
+                  <div className="inline-metrics">
+                    <div>
+                      <span>Last follow-up</span>
+                      <strong>{formatDateOnly(school.lastFollowUpAt)}</strong>
+                    </div>
+                    <div>
+                      <span>School admin</span>
+                      <strong>
+                        {schoolAdminAccount
+                          ? `${schoolAdminAccount.fullName} (${resultStatusLabel(schoolAdminAccount.status)})`
+                          : "Not provisioned yet"}
+                      </strong>
+                    </div>
+                  </div>
+
+                  <div className="button-row">
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      disabled={busyKey === `school:${school.id}`}
+                      onClick={() => void extendSubscription(school.id)}
+                    >
+                      Extend +30 days
+                    </button>
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      disabled={busyKey === `school:${school.id}`}
+                      onClick={() =>
+                        void saveSchool(school.id, {
+                          status: school.status === "suspended" ? "active" : "suspended",
+                        })
+                      }
+                    >
+                      {school.status === "suspended" ? "Reactivate school" : "Suspend school"}
+                    </button>
+                    <button
+                      type="button"
+                      className="primary-button"
+                      disabled={busyKey === `school:${school.id}`}
+                      onClick={() => void saveSchool(school.id)}
+                    >
+                      {busyKey === `school:${school.id}` ? "Saving..." : "Save school"}
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
+      {view === "adminAccounts" ? (
+        <section className="surface-card">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">School Admin Control</p>
+              <h3>Role separation, account status, and cross-school access exceptions</h3>
+            </div>
+          </div>
+          <div className="super-admin-account-grid">
+            {schoolAdminAccounts.map((account) => (
+              <article key={account.id} className="leader-card feature">
                 <div className="audit-header">
                   <div>
-                    <strong>{school.name}</strong>
-                    <p className="muted">
-                      {school.schoolCode} - {school.portalSlug}
-                    </p>
+                    <strong>{account.fullName}</strong>
+                    <p className="muted">{account.email}</p>
                   </div>
-                  <span className={`status-pill ${schoolStatusTone(school.status)}`}>
-                    {resultStatusLabel(school.status)}
+                  <span
+                    className={`status-pill ${
+                      account.status === "active" ? "status-approved" : "status-locked"
+                    }`}
+                  >
+                    {resultStatusLabel(account.status)}
                   </span>
                 </div>
 
-                <div className="grid-layout two-wide">
-                  <label>
-                    Plan
-                    <input
-                      value={school.plan}
-                      onChange={(event) => updateLocalSchool(school.id, "plan", event.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Status
-                    <select
-                      value={school.status}
-                      onChange={(event) =>
-                        updateLocalSchool(
-                          school.id,
-                          "status",
-                          event.target.value as SchoolPortfolioItem["status"],
-                        )
-                      }
-                    >
-                      <option value="active">Active</option>
-                      <option value="trial">Trial</option>
-                      <option value="expired">Expired</option>
-                      <option value="suspended">Suspended</option>
-                    </select>
-                  </label>
-                  <label>
-                    Students
-                    <input
-                      type="number"
-                      min={0}
-                      value={school.students}
-                      onChange={(event) =>
-                        updateLocalSchool(school.id, "students", Number(event.target.value) || 0)
-                      }
-                    />
-                  </label>
-                  <label>
-                    Storage used (GB)
-                    <input
-                      type="number"
-                      min={0}
-                      step="0.1"
-                      value={school.storageUsedGb}
-                      onChange={(event) =>
-                        updateLocalSchool(school.id, "storageUsedGb", Number(event.target.value) || 0)
-                      }
-                    />
-                  </label>
-                  <label>
-                    Storage quota (GB)
-                    <input
-                      type="number"
-                      min={1}
-                      step="0.1"
-                      value={school.storageQuotaGb}
-                      onChange={(event) =>
-                        updateLocalSchool(school.id, "storageQuotaGb", Number(event.target.value) || 1)
-                      }
-                    />
-                  </label>
-                  <label>
-                    Renewal date
-                    <input
-                      type="date"
-                      value={school.renewalDate}
-                      onChange={(event) => updateLocalSchool(school.id, "renewalDate", event.target.value)}
-                    />
-                  </label>
-                </div>
+                <p>
+                  {ROLE_LABEL[account.role]} for {schoolNameByCode.get(account.schoolCode) ?? account.schoolCode}
+                </p>
+                <p className="muted">Primary school scope: {account.schoolCode}</p>
 
                 <label>
-                  Follow-up note
-                  <textarea
-                    rows={3}
-                    value={school.notes}
-                    onChange={(event) => updateLocalSchool(school.id, "notes", event.target.value)}
+                  Extra school access
+                  <input
+                    value={accountScopeDrafts[account.id] ?? ""}
+                    placeholder="Comma-separated school codes"
+                    onChange={(event) =>
+                      setAccountScopeDrafts((current) => ({
+                        ...current,
+                        [account.id]: event.target.value,
+                      }))
+                    }
                   />
                 </label>
-
-                <div className="stack-list compact">
-                  <div className="comparison-card">
-                    <span>Last follow-up</span>
-                    <strong>{formatDateOnly(school.lastFollowUpAt)}</strong>
-                  </div>
-                  <div className="comparison-card">
-                    <span>School admin</span>
-                    <strong>
-                      {schoolAdminAccount
-                        ? `${schoolAdminAccount.fullName} (${resultStatusLabel(schoolAdminAccount.status)})`
-                        : "Not provisioned yet"}
-                    </strong>
-                  </div>
-                </div>
 
                 <div className="button-row">
                   <button
                     type="button"
                     className="secondary-button"
-                    disabled={busyKey === `school:${school.id}`}
-                    onClick={() => void extendSubscription(school.id)}
-                  >
-                    Extend +30 days
-                  </button>
-                  <button
-                    type="button"
-                    className="secondary-button"
-                    disabled={busyKey === `school:${school.id}`}
+                    disabled={busyKey === `account:${account.id}`}
                     onClick={() =>
-                      void saveSchool(school.id, {
-                        status: school.status === "suspended" ? "active" : "suspended",
-                      })
+                      void saveSchoolAdminAccount(
+                        account.id,
+                        account.status === "active" ? "disabled" : "active",
+                      )
                     }
                   >
-                    {school.status === "suspended" ? "Reactivate school" : "Suspend school"}
+                    {account.status === "active" ? "Disable account" : "Reactivate account"}
                   </button>
                   <button
                     type="button"
                     className="primary-button"
-                    disabled={busyKey === `school:${school.id}`}
-                    onClick={() => void saveSchool(school.id)}
+                    disabled={busyKey === `account:${account.id}`}
+                    onClick={() => void saveSchoolAdminAccount(account.id)}
                   >
-                    {busyKey === `school:${school.id}` ? "Saving..." : "Save school"}
+                    {busyKey === `account:${account.id}` ? "Saving..." : "Save scope"}
                   </button>
                 </div>
               </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="surface-card">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">School Admin Control</p>
-            <h3>Role separation, account status, and cross-school access exceptions</h3>
+            ))}
           </div>
-        </div>
-        <div className="card-grid">
-          {schoolAdminAccounts.map((account) => (
-            <article key={account.id} className="leader-card feature">
-              <div className="audit-header">
-                <div>
-                  <strong>{account.fullName}</strong>
-                  <p className="muted">{account.email}</p>
-                </div>
-                <span
-                  className={`status-pill ${
-                    account.status === "active" ? "status-approved" : "status-locked"
-                  }`}
-                >
-                  {resultStatusLabel(account.status)}
+        </section>
+      ) : null}
+
+      {view === "activity" ? (
+        <section className="surface-card">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Owner Activity</p>
+              <h3>Recent support, billing, and publication signals</h3>
+            </div>
+          </div>
+          <div className="timeline">
+            {notifications.map((item) => (
+              <article key={item.id} className="timeline-item">
+                <strong>{item.title}</strong>
+                <p>{item.message}</p>
+                <span>
+                  {item.audience} - {formatDateOnly(item.timestamp)}
                 </span>
-              </div>
-
-              <p>
-                {ROLE_LABEL[account.role]} for {schoolNameByCode.get(account.schoolCode) ?? account.schoolCode}
-              </p>
-              <p className="muted">Primary school scope: {account.schoolCode}</p>
-
-              <label>
-                Extra school access
-                <input
-                  value={accountScopeDrafts[account.id] ?? ""}
-                  placeholder="Comma-separated school codes"
-                  onChange={(event) =>
-                    setAccountScopeDrafts((current) => ({
-                      ...current,
-                      [account.id]: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-
-              <div className="button-row">
-                <button
-                  type="button"
-                  className="secondary-button"
-                  disabled={busyKey === `account:${account.id}`}
-                  onClick={() =>
-                    void saveSchoolAdminAccount(
-                      account.id,
-                      account.status === "active" ? "disabled" : "active",
-                    )
-                  }
-                >
-                  {account.status === "active" ? "Disable account" : "Reactivate account"}
-                </button>
-                <button
-                  type="button"
-                  className="primary-button"
-                  disabled={busyKey === `account:${account.id}`}
-                  onClick={() => void saveSchoolAdminAccount(account.id)}
-                >
-                  {busyKey === `account:${account.id}` ? "Saving..." : "Save scope"}
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="surface-card">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Owner Activity</p>
-            <h3>Recent support, billing, and publication signals</h3>
+              </article>
+            ))}
           </div>
-        </div>
-        <div className="timeline">
-          {notifications.map((item) => (
-            <article key={item.id} className="timeline-item">
-              <strong>{item.title}</strong>
-              <p>{item.message}</p>
-              <span>
-                {item.audience} - {formatDateOnly(item.timestamp)}
-              </span>
-            </article>
-          ))}
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   );
 }

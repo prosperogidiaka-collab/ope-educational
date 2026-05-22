@@ -22,12 +22,47 @@ function navigationSectionsFor(role: UserRole): NavigationSection[] {
   if (role === "super_admin") {
     return [
       {
-        label: "Platform",
+        label: "Overview",
         items: [
           {
             href: "/dashboard/super-admin",
-            label: "Super Admin",
-            caption: "Follow up schools, subscriptions, and platform operations",
+            label: "Operations Home",
+            caption: "Open the platform summary and shortcuts",
+          },
+        ],
+      },
+      {
+        label: "Tenants",
+        items: [
+          {
+            href: "/dashboard/super-admin/schools",
+            label: "School Portfolio",
+            caption: "Edit schools, plans, renewals, and follow-up notes",
+          },
+          {
+            href: "/dashboard/super-admin/onboarding",
+            label: "Create School",
+            caption: "Provision a new tenant and school-admin login",
+          },
+          {
+            href: "/dashboard/super-admin/admin-accounts",
+            label: "School Admins",
+            caption: "Manage account status and cross-school scope",
+          },
+        ],
+      },
+      {
+        label: "Platform Controls",
+        items: [
+          {
+            href: "/dashboard/super-admin/platform-settings",
+            label: "Platform Settings",
+            caption: "Control maintenance, onboarding, and portal access",
+          },
+          {
+            href: "/dashboard/super-admin/activity",
+            label: "Owner Activity",
+            caption: "Review support, billing, and publication signals",
           },
         ],
       },

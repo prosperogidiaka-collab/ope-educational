@@ -17,7 +17,15 @@ export function isSchoolAdminRole(role: UserRole) {
 
 /** Pages each role is allowed to open (by the `activeHref` the page passes to AppShell). */
 export const ROLE_ACCESS: Record<UserRole, string[]> = {
-  super_admin: ["/dashboard", "/dashboard/super-admin"],
+  super_admin: [
+    "/dashboard",
+    "/dashboard/super-admin",
+    "/dashboard/super-admin/schools",
+    "/dashboard/super-admin/onboarding",
+    "/dashboard/super-admin/admin-accounts",
+    "/dashboard/super-admin/platform-settings",
+    "/dashboard/super-admin/activity",
+  ],
   school_admin: [
     "/dashboard",
     "/dashboard/school-admin",
