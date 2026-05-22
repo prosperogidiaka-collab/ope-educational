@@ -29,6 +29,11 @@ export const ROLE_ACCESS: Record<UserRole, string[]> = {
   school_admin: [
     "/dashboard",
     "/dashboard/school-admin",
+    "/dashboard/school-admin/academic-controls",
+    "/dashboard/school-admin/registration",
+    "/dashboard/school-admin/student-affairs",
+    "/dashboard/school-admin/publication",
+    "/dashboard/school-admin/transitions",
     "/dashboard/principal",
     "/dashboard/academic",
     "/dashboard/teacher",
@@ -67,6 +72,11 @@ export const ROLE_ACCESS: Record<UserRole, string[]> = {
   principal: [
     "/dashboard",
     "/dashboard/school-admin",
+    "/dashboard/school-admin/academic-controls",
+    "/dashboard/school-admin/registration",
+    "/dashboard/school-admin/student-affairs",
+    "/dashboard/school-admin/publication",
+    "/dashboard/school-admin/transitions",
     "/dashboard/principal",
     "/dashboard/academic",
     "/dashboard/teacher",
