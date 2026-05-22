@@ -953,6 +953,122 @@ td {
   margin: 1rem 0;
 }
 
+.teacher-mobile-sheet {
+  display: none;
+}
+
+.teacher-mobile-card {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.96));
+  box-shadow: var(--shadow-sm);
+}
+
+.teacher-mobile-card.selected {
+  border-color: rgba(147, 197, 253, 0.82);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.08);
+}
+
+.teacher-mobile-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.teacher-mobile-card h4 {
+  margin: 0.08rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.teacher-mobile-select {
+  flex-shrink: 0;
+}
+
+.teacher-mobile-summary {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.teacher-mobile-summary > div {
+  padding: 0.72rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-muted);
+}
+
+.teacher-mobile-summary span:first-child,
+.teacher-mobile-score-grid label > span {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.teacher-mobile-score-grid label > span small {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.teacher-mobile-summary strong {
+  font-size: 1rem;
+}
+
+.teacher-mobile-score-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.teacher-mobile-score-grid label,
+.teacher-mobile-comment {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.teacher-mobile-comment textarea {
+  min-height: 88px;
+}
+
+.teacher-template-target {
+  margin: 0 0 1rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
+}
+
+.teacher-template-target span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.teacher-template-target strong {
+  display: block;
+  margin-top: 0.18rem;
+}
+
+.teacher-template-target p {
+  margin: 0.3rem 0 0;
+}
+
 .distribution-row {
   display: grid;
   gap: 0.4rem;
@@ -2148,6 +2264,33 @@ td {
   .mobile-sidebar-trigger {
     top: 0.75rem;
     left: 0.75rem;
+  }
+
+  .teacher-score-table {
+    display: none;
+  }
+
+  .teacher-mobile-sheet {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .teacher-mobile-score-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-mobile-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-mobile-card-head {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .teacher-mobile-select {
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-card,

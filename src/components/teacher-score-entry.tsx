@@ -190,6 +190,7 @@ export function TeacherScoreEntry({
       })),
     [componentRules, rows],
   );
+  const selectedRowIndex = rows.findIndex((row) => row.regNumber === selectedRegNumber);
 
   useEffect(() => {
     const returnedForCorrection = mode === "teacher" && canEditWhenLocked;
@@ -1078,7 +1079,7 @@ export function TeacherScoreEntry({
 
         <p className="muted">{csvFeedback}</p>
 
-        <div className="table-wrap teacher-table-wrap">
+        <div className="table-wrap teacher-table-wrap teacher-score-table">
           <table className="data-table teacher-grid">
             <thead>
               <tr>
@@ -1155,6 +1156,90 @@ export function TeacherScoreEntry({
             </tbody>
           </table>
         </div>
+
+        <div className="teacher-mobile-sheet">
+          {rows.map((row, index) => {
+            const total = calculateSubjectTotalForScore(row, componentRules, config.rankingPolicy);
+            const grade = resolveGrade(total, gradeScale);
+            const incomplete = isSubjectIncomplete(row, componentRules);
+            const isSelected = selectedRegNumber === row.regNumber;
+
+            return (
+              <article key={`mobile-${row.regNumber}`} className={isSelected ? "teacher-mobile-card selected" : "teacher-mobile-card"}>
+                <div className="teacher-mobile-card-head">
+                  <div>
+                    <p className="eyebrow">Student</p>
+                    <h4>{row.fullName}</h4>
+                    <p className="muted">{row.regNumber}</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="secondary-button teacher-mobile-select"
+                    onClick={() => setSelectedRegNumber(row.regNumber)}
+                  >
+                    {isSelected ? "Templates open" : "Open templates"}
+                  </button>
+                </div>
+
+                <div className="teacher-mobile-summary">
+                  <div>
+                    <span>Total</span>
+                    <strong>{total}</strong>
+                  </div>
+                  <div>
+                    <span>Grade</span>
+                    {incomplete ? (
+                      <span className="status-pill status-corrections_requested">Missing</span>
+                    ) : (
+                      <span className="grade-badge" style={{ borderColor: grade.color, color: grade.color }}>
+                        {grade.label}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <span>Status</span>
+                    <span className={`status-pill status-${row.status}`}>{resultStatusLabel(row.status)}</span>
+                  </div>
+                </div>
+
+                <div className="teacher-mobile-score-grid">
+                  {componentRules.map((rule) => (
+                    <label key={`${row.regNumber}-${rule.key}-mobile`}>
+                      <span>
+                        {rule.label}
+                        <small>{rule.maxScore} marks</small>
+                      </span>
+                      <input
+                        className={row.componentScores[rule.key] === null ? "cell-input input-error" : "cell-input"}
+                        value={row.componentScores[rule.key] ?? ""}
+                        type="number"
+                        min={0}
+                        max={rule.maxScore}
+                        onChange={(event) => handleScoreChange(index, rule.key, event.target.value)}
+                        disabled={!canEdit || (rule.frozen && mode !== "reviewer")}
+                      />
+                      {!canEdit ? (
+                        <span className="mini-note">Locked</span>
+                      ) : rule.frozen && mode !== "reviewer" ? (
+                        <span className="mini-note">Frozen</span>
+                      ) : null}
+                    </label>
+                  ))}
+                </div>
+
+                <label className="teacher-mobile-comment">
+                  <span>Teacher comment</span>
+                  <textarea
+                    value={row.teacherComment}
+                    onChange={(event) => handleCommentChange(index, event)}
+                    disabled={!canEdit}
+                    rows={3}
+                  />
+                </label>
+              </article>
+            );
+          })}
+        </div>
       </section>
 
       <aside className="surface-card">
@@ -1168,6 +1253,14 @@ export function TeacherScoreEntry({
         <p className="muted">
           Use moderated templates to speed up remarks while keeping tone and character count under control.
         </p>
+
+        <div className="teacher-template-target">
+          <span>Applying templates to</span>
+          <strong>{selectedRow?.fullName ?? "No student selected"}</strong>
+          <p className="muted">
+            {selectedRowIndex >= 0 ? `${selectedRowIndex + 1} of ${rows.length} students in this sheet.` : "Select a student row to target comment templates."}
+          </p>
+        </div>
 
         <div className="stack-list">
           {commentTemplates.map((template) => (
