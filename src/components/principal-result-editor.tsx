@@ -10,6 +10,7 @@ import {
   mergeResultSheetDraft,
   type ResultSheetDraft,
 } from "@/lib/report-sheet";
+import { buildShortResultPath } from "@/lib/short-links";
 import type { AcademicConfig, ResultTemplateSchema, SchoolProfile, StudentSummary } from "@/lib/types";
 
 interface PrincipalResultEditorProps {
@@ -173,7 +174,7 @@ export function PrincipalResultEditor({
         </div>
         <div className="button-row">
           <Link
-            href={`/results/${encodeURIComponent(selectedRegNumber)}?coupon=${selectedSummary.bundle.coupon.code}`}
+            href={buildShortResultPath(selectedSummary.bundle.coupon.code)}
             className="secondary-button"
           >
             Open student result

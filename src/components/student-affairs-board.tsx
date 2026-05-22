@@ -6,6 +6,7 @@ import { useDeferredValue, useEffect, useState } from "react";
 import { inferBaseClassName } from "@/lib/class-structure";
 import { formatDate, formatDateOnly, ordinal, resultStatusLabel } from "@/lib/calculations";
 import { buildInlineAttachmentPayload } from "@/lib/file-attachments";
+import { buildShortResultPath } from "@/lib/short-links";
 import type {
   ClassOffering,
   SchoolProfile,
@@ -566,7 +567,7 @@ export function StudentAffairsBoard({
     const portalUrl = `${currentOrigin}/portal`;
     const directResultUrl =
       credential?.couponCode
-        ? `${currentOrigin}/results/${encodeURIComponent(profile.regNumber)}?coupon=${encodeURIComponent(credential.couponCode)}`
+        ? `${currentOrigin}${buildShortResultPath(credential.couponCode)}`
         : "";
     const lines = [
       `Hello ${parentName},`,

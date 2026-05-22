@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "ope",
+  "name": "ope-educational",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-05-22",
   "compatibility_flags": ["nodejs_compat"],

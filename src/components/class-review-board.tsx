@@ -10,6 +10,7 @@ import {
   mergeResultSheetDraft,
   type ResultSheetDraftStore,
 } from "@/lib/report-sheet";
+import { buildShortVerificationPath } from "@/lib/short-links";
 import {
   releaseStateLabel,
   type ReviewDecision,
@@ -724,7 +725,7 @@ export function ClassReviewBoard({
             <ReportSheetView
               draft={buildSheetDraftFor(selectedSummary)}
               templateSchema={templateSchema}
-              verificationHref={`/verification/${selectedSummary.bundle.verificationId}`}
+              verificationHref={buildShortVerificationPath(selectedSummary.bundle.verificationId)}
               showActions={false}
               academicConfig={config}
             />
@@ -762,7 +763,7 @@ export function ClassReviewBoard({
               <ReportSheetView
                 draft={buildSheetDraftFor(previewSummary)}
                 templateSchema={templateSchema}
-                verificationHref={`/verification/${previewSummary.bundle.verificationId}`}
+                verificationHref={buildShortVerificationPath(previewSummary.bundle.verificationId)}
                 showActions={false}
                 academicConfig={config}
               />

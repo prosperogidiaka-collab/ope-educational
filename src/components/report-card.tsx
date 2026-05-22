@@ -4,6 +4,7 @@ import {
   mergeResultSheetDraft,
   type ResultSheetDraft,
 } from "@/lib/report-sheet";
+import { buildShortVerificationPath } from "@/lib/short-links";
 import type { AcademicConfig, GradeBand, ResultTemplateSchema, SchoolProfile, StudentSummary } from "@/lib/types";
 
 interface ReportCardProps {
@@ -32,7 +33,7 @@ export function ReportCard({
     <ReportSheetView
       draft={draft}
       templateSchema={templateSchema}
-      verificationHref={`/verification/${summary.bundle.verificationId}`}
+      verificationHref={buildShortVerificationPath(summary.bundle.verificationId)}
       showActions
       academicConfig={academicConfig}
     />
