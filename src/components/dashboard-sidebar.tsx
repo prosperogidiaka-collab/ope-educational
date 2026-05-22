@@ -65,6 +65,11 @@ export function DashboardSidebar({
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(() =>
     buildDefaultOpenState(sections, activeHref),
   );
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  function closeMobileSidebar() {
+    setMobileOpen(false);
+  }
 
   useEffect(() => {
     const defaults = buildDefaultOpenState(sections, activeHref);
@@ -115,97 +120,180 @@ export function DashboardSidebar({
     }
   }, []);
 
-  return (
-    <aside
-      ref={sidebarRef}
-      className="sidebar"
-      onScroll={(event) => {
-        window.sessionStorage.setItem(SIDEBAR_SCROLL_KEY, String(event.currentTarget.scrollTop));
-      }}
-    >
-      <div className="brand-card">
-        <div className="brand-mark image-brand-mark">
-          <img src={brandLogoUrl} alt={`${brandName} logo`} className="brand-image" />
-        </div>
-        <div>
-          <p className="eyebrow">{brandEyebrow}</p>
-          <h1>{brandTitle}</h1>
-          <p className="muted">{brandCaption}</p>
-        </div>
-      </div>
+  useEffect(() => {
+    closeMobileSidebar();
+  }, [activeHref]);
 
-      <nav className="nav-list" aria-label="Primary">
-        {sections.map((section) =>
-          section.items.length === 1 ? (
-            <div key={section.label} className="nav-section">
-              <p className="nav-section-title">{section.label}</p>
-              <div className="nav-section-items">
-                {section.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={normalizeNavHref(item.href) === activeHref ? "nav-item active" : "nav-item"}
-                  >
-                    <span className="nav-item-label">{item.label}</span>
-                    {item.caption ? <span className="nav-item-caption">{item.caption}</span> : null}
-                  </Link>
-                ))}
-              </div>
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1081px)");
+    const handleViewportChange = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setMobileOpen(false);
+      }
+    };
+
+    if (mediaQuery.matches) {
+      setMobileOpen(false);
+    }
+
+    mediaQuery.addEventListener("change", handleViewportChange);
+    return () => mediaQuery.removeEventListener("change", handleViewportChange);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) {
+      return;
+    }
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileOpen]);
+
+  return (
+    <>
+      <button
+        type="button"
+        className="mobile-sidebar-trigger"
+        aria-controls="dashboard-sidebar-panel"
+        aria-expanded={mobileOpen ? "true" : "false"}
+        onClick={() => setMobileOpen(true)}
+      >
+        <span className="mobile-sidebar-trigger-icon" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
+        <span>Menu</span>
+      </button>
+
+      {mobileOpen ? (
+        <button
+          type="button"
+          className="mobile-sidebar-backdrop"
+          aria-label="Close navigation menu"
+          onClick={closeMobileSidebar}
+        />
+      ) : null}
+
+      <aside
+        id="dashboard-sidebar-panel"
+        ref={sidebarRef}
+        className={mobileOpen ? "sidebar mobile-open" : "sidebar"}
+        onScroll={(event) => {
+          window.sessionStorage.setItem(SIDEBAR_SCROLL_KEY, String(event.currentTarget.scrollTop));
+        }}
+      >
+        <div className="sidebar-head">
+          <div className="brand-card">
+            <div className="brand-mark image-brand-mark">
+              <img src={brandLogoUrl} alt={`${brandName} logo`} className="brand-image" />
             </div>
-          ) : (
-            <section
-              key={section.label}
-              className={openSections[section.label] ? "nav-dropdown open" : "nav-dropdown"}
-            >
-              <button
-                type="button"
-                className="nav-dropdown-summary"
-                aria-expanded={openSections[section.label] ? "true" : "false"}
-                onClick={() =>
-                  setOpenSections((current) => ({
-                    ...current,
-                    [section.label]: !current[section.label],
-                  }))
-                }
-              >
-                <span className="nav-dropdown-label">{section.label}</span>
-                <span className="nav-section-badge">{section.items.length}</span>
-              </button>
-              {openSections[section.label] ? (
-                <div className="nav-section-items nav-dropdown-items">
+            <div>
+              <p className="eyebrow">{brandEyebrow}</p>
+              <h1>{brandTitle}</h1>
+              <p className="muted">{brandCaption}</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="sidebar-mobile-close"
+            aria-label="Close navigation menu"
+            onClick={closeMobileSidebar}
+          >
+            ×
+          </button>
+        </div>
+
+        <nav className="nav-list" aria-label="Primary">
+          {sections.map((section) =>
+            section.items.length === 1 ? (
+              <div key={section.label} className="nav-section">
+                <p className="nav-section-title">{section.label}</p>
+                <div className="nav-section-items">
                   {section.items.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
                       className={normalizeNavHref(item.href) === activeHref ? "nav-item active" : "nav-item"}
+                      onClick={closeMobileSidebar}
                     >
                       <span className="nav-item-label">{item.label}</span>
                       {item.caption ? <span className="nav-item-caption">{item.caption}</span> : null}
                     </Link>
                   ))}
                 </div>
-              ) : null}
-            </section>
-          ),
-        )}
-      </nav>
+              </div>
+            ) : (
+              <section
+                key={section.label}
+                className={openSections[section.label] ? "nav-dropdown open" : "nav-dropdown"}
+              >
+                <button
+                  type="button"
+                  className="nav-dropdown-summary"
+                  aria-expanded={openSections[section.label] ? "true" : "false"}
+                  onClick={() =>
+                    setOpenSections((current) => ({
+                      ...current,
+                      [section.label]: !current[section.label],
+                    }))
+                  }
+                >
+                  <span className="nav-dropdown-label">{section.label}</span>
+                  <span className="nav-section-badge">{section.items.length}</span>
+                </button>
+                {openSections[section.label] ? (
+                  <div className="nav-section-items nav-dropdown-items">
+                    {section.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={normalizeNavHref(item.href) === activeHref ? "nav-item active" : "nav-item"}
+                        onClick={closeMobileSidebar}
+                      >
+                        <span className="nav-item-label">{item.label}</span>
+                        {item.caption ? <span className="nav-item-caption">{item.caption}</span> : null}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </section>
+            ),
+          )}
+        </nav>
 
-      <div className="sidebar-user">
-        <div className="sidebar-user-id">
-          <span className={userPhotoUrl ? "sidebar-avatar image" : "sidebar-avatar"}>
-            {userPhotoUrl ? <img src={userPhotoUrl} alt={`${displayName} profile`} className="sidebar-avatar-image" /> : initials || "U"}
-          </span>
-          <div>
-            <strong>{displayName}</strong>
-            <span className="muted">{roleLabel}</span>
+        <div className="sidebar-user">
+          <div className="sidebar-user-id">
+            <span className={userPhotoUrl ? "sidebar-avatar image" : "sidebar-avatar"}>
+              {userPhotoUrl ? <img src={userPhotoUrl} alt={`${displayName} profile`} className="sidebar-avatar-image" /> : initials || "U"}
+            </span>
+            <div>
+              <strong>{displayName}</strong>
+              <span className="muted">{roleLabel}</span>
+            </div>
           </div>
+          <form action={logoutAction}>
+            <button type="submit" className="secondary-button sidebar-signout" onClick={closeMobileSidebar}>
+              Sign out
+            </button>
+          </form>
         </div>
-        <form action={logoutAction}>
-          <button type="submit" className="secondary-button sidebar-signout">
-            Sign out
-          </button>
-        </form>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }
