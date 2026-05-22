@@ -112,7 +112,7 @@ async function resolveDataBackend(): Promise<DataBackend> {
 export async function mkdir(targetPath: string, options?: { recursive?: boolean }) {
   const dataKey = dataKeyFor(targetPath);
 
-  if (!dataKey) {
+  if (dataKey === null) {
     return nativeMkdir(targetPath, options);
   }
 
@@ -130,7 +130,7 @@ export function readFile(targetPath: string, encoding?: null): Promise<Buffer>;
 export async function readFile(targetPath: string, encoding: FileEncoding = null): Promise<string | Buffer> {
   const dataKey = dataKeyFor(targetPath);
 
-  if (!dataKey) {
+  if (dataKey === null) {
     return nativeReadFile(targetPath, encoding as BufferEncoding);
   }
 
@@ -157,7 +157,7 @@ export async function writeFile(
 ) {
   const dataKey = dataKeyFor(targetPath);
 
-  if (!dataKey) {
+  if (dataKey === null) {
     return nativeWriteFile(targetPath, contents, encoding as BufferEncoding);
   }
 
