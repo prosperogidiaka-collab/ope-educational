@@ -48,6 +48,7 @@ function normalizeStoredStaffAccount(account: StoredStaffAccount): StoredStaffAc
     fullName: shouldRefreshLegacySchoolAdminIdentity ? matchingSchoolAdminSeed.fullName : account.fullName,
     email: shouldRefreshLegacySchoolAdminIdentity ? matchingSchoolAdminSeed.email : account.email,
     password: shouldRefreshLegacySchoolAdminIdentity ? matchingSchoolAdminSeed.password : normalizedPassword,
+    mustChangePassword: Boolean(account.mustChangePassword),
     registeredBy: shouldRefreshLegacySchoolAdminIdentity ? "Super Admin" : normalizedRegisteredBy,
     lastAction: shouldRefreshLegacySchoolAdminIdentity
       ? "Updated staff permissions and publication controls for SS2 Gold."
@@ -72,6 +73,7 @@ function normalizeStoredStaffAccounts(accounts: StoredStaffAccount[]) {
     password: adminCredential.password,
     role: "super_admin",
     status: "active",
+    mustChangePassword: false,
     registeredBy: "System",
     canRegisterTeachers: true,
     canDisableTeachers: true,
@@ -119,6 +121,7 @@ function buildSeedStore(): StoredStaffAccount[] {
         password: seed.password,
         role: "school_admin",
         status: "active",
+        mustChangePassword: false,
         registeredBy: "Super Admin",
         canRegisterTeachers: true,
         canDisableTeachers: true,

@@ -240,6 +240,10 @@ export async function AppShell({ activeHref, eyebrow, title, description, childr
     redirect("/auth/reset-session?next=/login");
   }
 
+  if (account.mustChangePassword || session.passwordResetRequired) {
+    redirect("/change-password");
+  }
+
   if (!canAccessAccount(account, activeHref)) {
     redirect(roleHomeFor(account.role));
   }

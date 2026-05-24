@@ -5,7 +5,7 @@
       "id": "exec_template",
       "name": "The Executive",
       "summary": "Prestige-style result with strong header hierarchy, signatures, and verified branding.",
-      "primaryColor": "#0f4c5c",
+      "primaryColor": "#1d4ed8",
       "fontFamily": "Playfair Display",
       "borderStyle": "executive",
       "terminology": {
@@ -28,7 +28,7 @@
         "showAddress": true,
         "showSchoolCode": true,
         "showGovernmentStamp": true,
-        "logoUrl": "/assets/ope-educational-logo.svg",
+        "logoUrl": "/assets/ope-school-logo.svg",
         "governmentStampUrl": "/assets/ope-government-stamp.svg"
       },
       "studentBio": {
@@ -77,7 +77,7 @@
       "id": "traditional_template",
       "name": "The Traditional",
       "summary": "Heavy borders, full academic columns, and government-stamp first presentation.",
-      "primaryColor": "#203748",
+      "primaryColor": "#1e40af",
       "fontFamily": "Georgia",
       "borderStyle": "traditional",
       "terminology": {
@@ -101,7 +101,7 @@
         "showAddress": true,
         "showSchoolCode": true,
         "showGovernmentStamp": true,
-        "logoUrl": "/assets/ope-educational-logo.svg",
+        "logoUrl": "/assets/ope-school-logo.svg",
         "governmentStampUrl": "/assets/ope-government-stamp.svg"
       },
       "studentBio": {
@@ -150,7 +150,7 @@
       "id": "minimalist_template",
       "name": "The Minimalist",
       "summary": "Clean spacing, fewer borders, and only the most essential publication blocks.",
-      "primaryColor": "#1c6b74",
+      "primaryColor": "#2563eb",
       "fontFamily": "Inter",
       "borderStyle": "minimalist",
       "terminology": {
@@ -172,7 +172,7 @@
         "showAddress": false,
         "showSchoolCode": true,
         "showGovernmentStamp": false,
-        "logoUrl": "/assets/ope-educational-logo.svg",
+        "logoUrl": "/assets/ope-school-logo.svg",
         "governmentStampUrl": "/assets/ope-government-stamp.svg"
       },
       "studentBio": {
@@ -217,7 +217,7 @@
     "id": "exec_template",
     "name": "The Executive",
     "summary": "Prestige-style result with strong header hierarchy, signatures, and verified branding.",
-    "primaryColor": "#0f4c5c",
+    "primaryColor": "#1d4ed8",
     "fontFamily": "Playfair Display",
     "borderStyle": "executive",
     "terminology": {
@@ -240,7 +240,7 @@
       "showAddress": true,
       "showSchoolCode": true,
       "showGovernmentStamp": true,
-      "logoUrl": "/assets/ope-educational-logo.svg",
+      "logoUrl": "/assets/ope-school-logo.svg",
       "governmentStampUrl": "/assets/ope-government-stamp.svg"
     },
     "studentBio": {
@@ -289,7 +289,7 @@
     "id": "exec_template",
     "name": "The Executive",
     "summary": "Prestige-style result with strong header hierarchy, signatures, and verified branding.",
-    "primaryColor": "#0f4c5c",
+    "primaryColor": "#1d4ed8",
     "fontFamily": "Playfair Display",
     "borderStyle": "executive",
     "terminology": {
@@ -312,7 +312,7 @@
       "showAddress": true,
       "showSchoolCode": true,
       "showGovernmentStamp": true,
-      "logoUrl": "/assets/ope-educational-logo.svg",
+      "logoUrl": "/assets/ope-school-logo.svg",
       "governmentStampUrl": "/assets/ope-government-stamp.svg"
     },
     "studentBio": {

@@ -11,6 +11,16 @@ export interface LoginState {
   error?: string;
 }
 
+async function writeStaffSession(session: StaffSession) {
+  const store = await cookies();
+  store.set(SESSION_COOKIE, JSON.stringify(session), {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 8,
+  });
+}
+
 export async function loginAction(_prev: LoginState, formData: FormData): Promise<LoginState> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
@@ -45,14 +55,13 @@ export async function loginAction(_prev: LoginState, formData: FormData): Promis
     name: match.fullName,
     role: match.role,
     schoolCode: match.schoolCode,
+    passwordResetRequired: Boolean(match.mustChangePassword),
   };
-  const store = await cookies();
-  store.set(SESSION_COOKIE, JSON.stringify(session), {
-    httpOnly: true,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 8,
-  });
+  await writeStaffSession(session);
+
+  if (match.mustChangePassword) {
+    redirect("/change-password");
+  }
 
   redirect(roleHomeFor(match.role));
 }

@@ -9,6 +9,7 @@ export interface StaffSession {
   name: string;
   role: UserRole;
   schoolCode?: string;
+  passwordResetRequired?: boolean;
 }
 
 export function isSchoolAdminRole(role: UserRole) {

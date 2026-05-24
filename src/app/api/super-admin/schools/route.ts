@@ -120,6 +120,7 @@ export async function POST(request: Request) {
     password: "Admin@123",
     role: "school_admin" as const,
     status: "active" as const,
+    mustChangePassword: true,
     registeredBy: access.account.fullName,
     canRegisterTeachers: true,
     canDisableTeachers: true,

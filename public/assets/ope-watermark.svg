@@ -1,23 +1,23 @@
 <svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="opeEducationalWatermarkBook" x1="160" y1="146" x2="438" y2="372" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#2563EB" stop-opacity="0.16" />
-      <stop offset="0.55" stop-color="#0EA5E9" stop-opacity="0.18" />
-      <stop offset="1" stop-color="#22C55E" stop-opacity="0.16" />
+    <linearGradient id="opeSchoolWatermarkBook" x1="160" y1="146" x2="438" y2="372" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1D4ED8" stop-opacity="0.14" />
+      <stop offset="0.55" stop-color="#2563EB" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#7DD3FC" stop-opacity="0.16" />
     </linearGradient>
-    <linearGradient id="opeEducationalWatermarkBulb" x1="242" y1="208" x2="355" y2="356" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#22C55E" stop-opacity="0.16" />
-      <stop offset="1" stop-color="#84CC16" stop-opacity="0.14" />
+    <linearGradient id="opeSchoolWatermarkCore" x1="242" y1="208" x2="355" y2="356" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#DBEAFE" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#93C5FD" stop-opacity="0.14" />
     </linearGradient>
   </defs>
   <circle cx="300" cy="300" r="232" stroke="#2563EB" stroke-width="18" opacity="0.1" />
-  <circle cx="300" cy="300" r="188" stroke="#0F766E" stroke-width="12" opacity="0.12" />
-  <rect x="163" y="214" width="274" height="182" rx="28" fill="url(#opeEducationalWatermarkBook)" />
-  <path d="M173 214C220 214 265 223 300 250C335 223 380 214 427 214V399C379 393 337 406 300 440C263 406 221 393 173 399V214Z" stroke="#0F766E" stroke-width="14" stroke-linejoin="round" opacity="0.14" />
-  <path d="M300 250V440" stroke="#0F766E" stroke-width="14" stroke-linecap="round" opacity="0.14" />
-  <path d="M173 399C221 393 263 406 300 440C337 406 379 393 427 399" stroke="#0F766E" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.14" />
-  <circle cx="300" cy="282" r="62" fill="url(#opeEducationalWatermarkBulb)" stroke="#0F766E" stroke-width="12" opacity="0.16" />
-  <path d="M300 228C267.967 228 242 253.967 242 286C242 307.082 253.474 325.912 270.543 336.043C278.284 340.638 283.176 348.711 283.176 357.588V360.864H316.824V357.588C316.824 348.66 321.726 340.541 329.531 335.9C346.556 325.787 358 307.036 358 286C358 253.967 332.033 228 300 228Z" stroke="#0F766E" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.16" />
-  <path d="M281 378H319" stroke="#0F766E" stroke-width="12" stroke-linecap="round" opacity="0.16" />
-  <path d="M285 397H315" stroke="#0F766E" stroke-width="12" stroke-linecap="round" opacity="0.16" />
+  <circle cx="300" cy="300" r="188" stroke="#1E40AF" stroke-width="12" opacity="0.12" />
+  <rect x="163" y="214" width="274" height="182" rx="28" fill="url(#opeSchoolWatermarkBook)" />
+  <path d="M173 214C220 214 265 223 300 250C335 223 380 214 427 214V399C379 393 337 406 300 440C263 406 221 393 173 399V214Z" stroke="#1E40AF" stroke-width="14" stroke-linejoin="round" opacity="0.14" />
+  <path d="M300 250V440" stroke="#1E40AF" stroke-width="14" stroke-linecap="round" opacity="0.14" />
+  <path d="M173 399C221 393 263 406 300 440C337 406 379 393 427 399" stroke="#1E40AF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.14" />
+  <circle cx="300" cy="282" r="62" fill="url(#opeSchoolWatermarkCore)" stroke="#1E40AF" stroke-width="12" opacity="0.16" />
+  <path d="M300 228C267.967 228 242 253.967 242 286C242 307.082 253.474 325.912 270.543 336.043C278.284 340.638 283.176 348.711 283.176 357.588V360.864H316.824V357.588C316.824 348.66 321.726 340.541 329.531 335.9C346.556 325.787 358 307.036 358 286C358 253.967 332.033 228 300 228Z" stroke="#1E40AF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.16" />
+  <path d="M281 378H319" stroke="#1E40AF" stroke-width="12" stroke-linecap="round" opacity="0.16" />
+  <path d="M285 397H315" stroke="#1E40AF" stroke-width="12" stroke-linecap="round" opacity="0.16" />
 </svg>

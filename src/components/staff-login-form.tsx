@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 
 import { loginAction, type LoginState } from "@/app/login/actions";
+import { PasswordField } from "@/components/password-field";
 
 const initialState: LoginState = {};
 
@@ -21,10 +22,13 @@ export function StaffLoginForm() {
           placeholder="you@school.edu"
         />
       </label>
-      <label>
-        Password
-        <input name="password" type="password" autoComplete="current-password" required placeholder="Your account password" />
-      </label>
+      <PasswordField
+        label="Password"
+        name="password"
+        autoComplete="current-password"
+        placeholder="Your account password"
+        required
+      />
       <button type="submit" className="primary-button" disabled={pending}>
         {pending ? "Signing in..." : "Sign in"}
       </button>

@@ -465,6 +465,7 @@ export interface StaffAccount {
   photoUrl?: string;
   role: UserRole;
   status: AccountStatus;
+  mustChangePassword?: boolean;
   registeredBy: string;
   canRegisterTeachers?: boolean;
   canDisableTeachers?: boolean;
