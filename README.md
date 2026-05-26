@@ -109,11 +109,9 @@ The UI currently runs on seeded demo data, but the Prisma schema already points 
 - The included [wrangler.jsonc](/c:/Users/HP/Documents/OPE%20EDU%20RESULTS/wrangler.jsonc) already targets the OpenNext worker output and enables `nodejs_compat`.
 - The included [next.config.ts](/c:/Users/HP/Documents/OPE%20EDU%20RESULTS/next.config.ts) initializes the OpenNext Cloudflare dev bridge, and [src/lib/storage-fs.ts](/c:/Users/HP/Documents/OPE%20EDU%20RESULTS/src/lib/storage-fs.ts) switches the app's `data/` storage between local files, Workers KV, and a safe in-memory fallback automatically.
 
-## Demo portal credentials
+## Local secret storage
 
-- `OPE/SS2/001` + `A93K2L7Q8P`
-- `OPE/SS2/002` + `B7M4N8X2Q5`
-- `OPE/SS2/004` + `D2W6Y0Z4H8`
+Portal passwords, coupon codes, and staff login passwords are kept in local-only files under `data/private/`. Those files are ignored by Git so live credentials are not committed with the project.
 
 ## Current environment note
 

@@ -4,19 +4,54 @@ import { mkdir, readFile, writeFile } from "@/lib/storage-fs";
 import path from "path";
 
 import { canAccessSchool, PLATFORM_SCHOOL_CODE } from "@/lib/auth";
-import { portfolioSchoolAdminSeeds, school, staffAccounts, staffLoginCredentials } from "@/lib/demo-data";
+import { portfolioSchoolAdminSeeds, school, staffAccounts } from "@/lib/demo-data";
+import { generateTemporaryPassword } from "@/lib/secret-utils";
 import type { StaffAccount } from "@/lib/types";
 
 const STAFF_ACCOUNTS_STORE_PATH = path.join(process.cwd(), "data", "staff-accounts.json");
+const STAFF_ACCOUNT_PASSWORD_STORE_PATH = path.join(
+  process.cwd(),
+  "data",
+  "private",
+  "staff-account-passwords.json",
+);
 const PLATFORM_ADMIN_ACCOUNT_ID = "acct_super_admin_001";
+const PLATFORM_ADMIN_NAME = "Platform Super Admin";
+const PLATFORM_ADMIN_EMAIL = "owner@ope.local";
 
 export interface StoredStaffAccount extends StaffAccount {
   password: string;
 }
 
+type PublicStoredStaffAccount = Omit<StoredStaffAccount, "password"> & {
+  password?: string;
+};
+
+type StoredStaffPasswordMap = Record<string, string>;
 type StaffAccountScopeViewer = Pick<StaffAccount, "role" | "schoolCode" | "grantedSchoolCodes">;
 
-function normalizeStoredStaffAccount(account: StoredStaffAccount): StoredStaffAccount {
+function buildPlatformAdminAccount(): PublicStoredStaffAccount {
+  return {
+    id: PLATFORM_ADMIN_ACCOUNT_ID,
+    schoolCode: schoolCodeForAdmin(),
+    fullName: PLATFORM_ADMIN_NAME,
+    email: PLATFORM_ADMIN_EMAIL,
+    role: "super_admin",
+    status: "active",
+    mustChangePassword: false,
+    registeredBy: "System",
+    canRegisterTeachers: true,
+    canDisableTeachers: true,
+    canRegisterStudents: true,
+    grantedSchoolCodes: [],
+    assignedArms: [],
+    assignedSubjects: [],
+    classTeacherArms: [],
+    lastAction: "Platform-wide account governance enabled.",
+  };
+}
+
+function normalizePublicStoredStaffAccount(account: PublicStoredStaffAccount): PublicStoredStaffAccount {
   const normalizedRole =
     account.role === "principal" && account.schoolCode !== PLATFORM_SCHOOL_CODE
       ? "school_admin"
@@ -37,17 +72,12 @@ function normalizeStoredStaffAccount(account: StoredStaffAccount): StoredStaffAc
   const normalizedLastAction = account.lastAction.includes("pending reassignment by principal")
     ? account.lastAction.replace("pending reassignment by principal", "pending reassignment by the school admin")
     : account.lastAction;
-  const normalizedPassword =
-    account.role === "class_teacher" && account.password === "Classteacher@123"
-      ? "Teacher@123"
-      : account.password;
 
   return {
     ...account,
     role: normalizedRole,
     fullName: shouldRefreshLegacySchoolAdminIdentity ? matchingSchoolAdminSeed.fullName : account.fullName,
     email: shouldRefreshLegacySchoolAdminIdentity ? matchingSchoolAdminSeed.email : account.email,
-    password: shouldRefreshLegacySchoolAdminIdentity ? matchingSchoolAdminSeed.password : normalizedPassword,
     mustChangePassword: Boolean(account.mustChangePassword),
     registeredBy: shouldRefreshLegacySchoolAdminIdentity ? "Super Admin" : normalizedRegisteredBy,
     lastAction: shouldRefreshLegacySchoolAdminIdentity
@@ -57,33 +87,9 @@ function normalizeStoredStaffAccount(account: StoredStaffAccount): StoredStaffAc
   };
 }
 
-function normalizeStoredStaffAccounts(accounts: StoredStaffAccount[]) {
-  const normalizedAccounts = accounts.map(normalizeStoredStaffAccount);
-  const adminCredential = staffLoginCredentials.find((credential) => credential.role === "super_admin");
-
-  if (!adminCredential) {
-    return normalizedAccounts;
-  }
-
-  const platformAdminAccount: StoredStaffAccount = {
-    id: PLATFORM_ADMIN_ACCOUNT_ID,
-    schoolCode: schoolCodeForAdmin(),
-    fullName: adminCredential.name,
-    email: adminCredential.email,
-    password: adminCredential.password,
-    role: "super_admin",
-    status: "active",
-    mustChangePassword: false,
-    registeredBy: "System",
-    canRegisterTeachers: true,
-    canDisableTeachers: true,
-    canRegisterStudents: true,
-    grantedSchoolCodes: [],
-    assignedArms: [],
-    assignedSubjects: [],
-    classTeacherArms: [],
-    lastAction: "Platform-wide account governance enabled.",
-  };
+function normalizePublicStoredStaffAccounts(accounts: PublicStoredStaffAccount[]) {
+  const normalizedAccounts = accounts.map(normalizePublicStoredStaffAccount);
+  const platformAdminAccount = buildPlatformAdminAccount();
   const platformAdminIndex = normalizedAccounts.findIndex((account) => account.role === "super_admin");
 
   if (platformAdminIndex >= 0) {
@@ -98,27 +104,20 @@ function normalizeStoredStaffAccounts(accounts: StoredStaffAccount[]) {
   return normalizedAccounts;
 }
 
-function buildSeedStore(): StoredStaffAccount[] {
-  const credentialsByEmail = new Map(
-    staffLoginCredentials.map((credential) => [credential.email.toLowerCase(), credential.password]),
-  );
-  const baseAccounts: StoredStaffAccount[] = staffAccounts.map((account) =>
-    normalizeStoredStaffAccount({
-      ...account,
-      password: credentialsByEmail.get(account.email.toLowerCase()) ?? "Teacher@123",
-    }),
+function buildPublicSeedStore(): PublicStoredStaffAccount[] {
+  const baseAccounts: PublicStoredStaffAccount[] = staffAccounts.map((account) =>
+    normalizePublicStoredStaffAccount(account),
   );
 
   const seededSchoolCodes = new Set(baseAccounts.map((account) => account.schoolCode.toUpperCase()));
-  const schoolAdminAccounts: StoredStaffAccount[] = portfolioSchoolAdminSeeds
+  const schoolAdminAccounts: PublicStoredStaffAccount[] = portfolioSchoolAdminSeeds
     .filter((seed) => !seededSchoolCodes.has(seed.schoolCode.toUpperCase()))
     .map((seed, index) =>
-      normalizeStoredStaffAccount({
+      normalizePublicStoredStaffAccount({
         id: `acct_school_admin_seed_${(index + 1).toString().padStart(3, "0")}`,
         schoolCode: seed.schoolCode,
         fullName: seed.fullName,
         email: seed.email,
-        password: seed.password,
         role: "school_admin",
         status: "active",
         mustChangePassword: false,
@@ -134,20 +133,87 @@ function buildSeedStore(): StoredStaffAccount[] {
       }),
     );
 
-  return normalizeStoredStaffAccounts([...baseAccounts, ...schoolAdminAccounts]);
+  return normalizePublicStoredStaffAccounts([...baseAccounts, ...schoolAdminAccounts]);
 }
 
 function schoolCodeForAdmin() {
   return PLATFORM_SCHOOL_CODE;
 }
 
+function stripStoredStaffAccountSecrets(account: PublicStoredStaffAccount | StoredStaffAccount) {
+  const { password: _password, ...publicAccount } = account;
+  return publicAccount;
+}
+
+function defaultPasswordForAccount() {
+  return generateTemporaryPassword("Staff");
+}
+
+function mergeStoredStaffAccounts(
+  publicAccounts: PublicStoredStaffAccount[],
+  passwordMap: StoredStaffPasswordMap,
+) {
+  const nextPasswordMap = { ...passwordMap };
+  const mergedAccounts = publicAccounts.map((account) => {
+    const existingPassword =
+      (typeof account.password === "string" && account.password.trim()) || nextPasswordMap[account.id];
+    const password = existingPassword?.trim() || defaultPasswordForAccount();
+    nextPasswordMap[account.id] = password;
+
+    return {
+      ...stripStoredStaffAccountSecrets(account),
+      password,
+    };
+  });
+
+  return { mergedAccounts, nextPasswordMap };
+}
+
+async function readStoredStaffPasswordMap(): Promise<StoredStaffPasswordMap> {
+  try {
+    const fileContents = await readFile(STAFF_ACCOUNT_PASSWORD_STORE_PATH, "utf8");
+    const parsed = JSON.parse(fileContents) as StoredStaffPasswordMap;
+    return Object.fromEntries(
+      Object.entries(parsed).filter((entry): entry is [string, string] => typeof entry[1] === "string" && Boolean(entry[1].trim())),
+    );
+  } catch {
+    return {};
+  }
+}
+
+async function writeStoredStaffPasswordMap(passwordMap: StoredStaffPasswordMap) {
+  await mkdir(path.dirname(STAFF_ACCOUNT_PASSWORD_STORE_PATH), { recursive: true });
+  await writeFile(STAFF_ACCOUNT_PASSWORD_STORE_PATH, JSON.stringify(passwordMap, null, 2), "utf8");
+}
+
 async function ensureStaffAccountsStoreFile() {
   await mkdir(path.dirname(STAFF_ACCOUNTS_STORE_PATH), { recursive: true });
+  await mkdir(path.dirname(STAFF_ACCOUNT_PASSWORD_STORE_PATH), { recursive: true });
+
+  let publicAccounts: PublicStoredStaffAccount[];
+  let hasExistingPublicFile = true;
 
   try {
-    await readFile(STAFF_ACCOUNTS_STORE_PATH, "utf8");
+    const fileContents = await readFile(STAFF_ACCOUNTS_STORE_PATH, "utf8");
+    publicAccounts = normalizePublicStoredStaffAccounts(JSON.parse(fileContents) as PublicStoredStaffAccount[]);
   } catch {
-    await writeFile(STAFF_ACCOUNTS_STORE_PATH, JSON.stringify(buildSeedStore(), null, 2), "utf8");
+    hasExistingPublicFile = false;
+    publicAccounts = buildPublicSeedStore();
+  }
+
+  const passwordMap = await readStoredStaffPasswordMap();
+  const { mergedAccounts, nextPasswordMap } = mergeStoredStaffAccounts(publicAccounts, passwordMap);
+  const sanitizedPublicAccounts = mergedAccounts.map(stripStoredStaffAccountSecrets);
+
+  if (
+    !hasExistingPublicFile ||
+    JSON.stringify(publicAccounts) !== JSON.stringify(sanitizedPublicAccounts)
+  ) {
+    await writeFile(STAFF_ACCOUNTS_STORE_PATH, JSON.stringify(sanitizedPublicAccounts, null, 2), "utf8");
+  }
+
+  if (JSON.stringify(passwordMap) !== JSON.stringify(nextPasswordMap)) {
+    await writeStoredStaffPasswordMap(nextPasswordMap);
   }
 }
 
@@ -155,23 +221,44 @@ export async function readStoredStaffAccounts(): Promise<StoredStaffAccount[]> {
   await ensureStaffAccountsStoreFile();
 
   try {
-    const fileContents = await readFile(STAFF_ACCOUNTS_STORE_PATH, "utf8");
-    const parsed = JSON.parse(fileContents) as StoredStaffAccount[];
-    const normalized = normalizeStoredStaffAccounts(parsed);
+    const [fileContents, passwordMap] = await Promise.all([
+      readFile(STAFF_ACCOUNTS_STORE_PATH, "utf8"),
+      readStoredStaffPasswordMap(),
+    ]);
+    const parsed = JSON.parse(fileContents) as PublicStoredStaffAccount[];
+    const normalizedPublicAccounts = normalizePublicStoredStaffAccounts(parsed);
+    const { mergedAccounts, nextPasswordMap } = mergeStoredStaffAccounts(normalizedPublicAccounts, passwordMap);
+    const normalizedPublicSnapshot = mergedAccounts.map(stripStoredStaffAccountSecrets);
 
-    if (JSON.stringify(parsed) !== JSON.stringify(normalized)) {
-      await writeStoredStaffAccounts(normalized);
+    if (JSON.stringify(parsed) !== JSON.stringify(normalizedPublicSnapshot)) {
+      await writeFile(
+        STAFF_ACCOUNTS_STORE_PATH,
+        JSON.stringify(normalizedPublicSnapshot, null, 2),
+        "utf8",
+      );
     }
 
-    return normalized;
+    if (JSON.stringify(passwordMap) !== JSON.stringify(nextPasswordMap)) {
+      await writeStoredStaffPasswordMap(nextPasswordMap);
+    }
+
+    return mergedAccounts;
   } catch {
-    return buildSeedStore();
+    return mergeStoredStaffAccounts(buildPublicSeedStore(), {}).mergedAccounts;
   }
 }
 
 export async function writeStoredStaffAccounts(accounts: StoredStaffAccount[]) {
   await ensureStaffAccountsStoreFile();
-  await writeFile(STAFF_ACCOUNTS_STORE_PATH, JSON.stringify(accounts, null, 2), "utf8");
+  const publicAccounts = normalizePublicStoredStaffAccounts(accounts.map(stripStoredStaffAccountSecrets));
+  const passwordMap = Object.fromEntries(
+    accounts.map((account) => [account.id, account.password.trim() || defaultPasswordForAccount()]),
+  );
+
+  await Promise.all([
+    writeFile(STAFF_ACCOUNTS_STORE_PATH, JSON.stringify(publicAccounts, null, 2), "utf8"),
+    writeStoredStaffPasswordMap(passwordMap),
+  ]);
 }
 
 export async function readStaffAccounts() {

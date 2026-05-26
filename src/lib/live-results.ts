@@ -9,6 +9,7 @@ import { readReportSheetDraftStore } from "@/lib/report-sheet-store";
 import { releaseStateToStatus, type ReviewDecisionStore } from "@/lib/review-decisions";
 import { readReviewDecisionStore } from "@/lib/review-decisions-store";
 import { buildAttendanceSummaryMap, readStudentAttendancePolicy } from "@/lib/student-attendance-store";
+import { readStudentPortalCredentials } from "@/lib/student-portal-credentials-store";
 import { readStudentProfiles } from "@/lib/student-profiles-store";
 import { readStudentReports } from "@/lib/student-reports-store";
 import { readTeacherScoresStore } from "@/lib/teacher-scores-store";
@@ -42,6 +43,7 @@ export async function getLiveResults(): Promise<LiveResultsData> {
     attendancePolicy,
     studentReports,
     studentProfiles,
+    studentPortalCredentials,
   ] = await Promise.all([
     readAcademicConfig(),
     readRuntimeSchoolProfile(),
@@ -53,6 +55,7 @@ export async function getLiveResults(): Promise<LiveResultsData> {
     readStudentAttendancePolicy(),
     readStudentReports(),
     readStudentProfiles(),
+    readStudentPortalCredentials(),
   ]);
   const resultLockByClassName = new Map(resultLocks.map((lock) => [lock.className, lock]));
   const reportsByRegNumber = new Map<string, typeof studentReports>(
@@ -65,10 +68,14 @@ export async function getLiveResults(): Promise<LiveResultsData> {
     reportsByRegNumber.set(report.regNumber, current);
   });
   const profileByRegNumber = new Map(studentProfiles.map((profile) => [profile.regNumber, profile]));
+  const credentialByRegNumber = new Map(
+    studentPortalCredentials.map((credential) => [credential.regNumber, credential]),
+  );
 
   const mergedBundles: StudentResultBundle[] = resultBundles.map((bundle) => {
     const regNumber = bundle.student.regNumber;
     const profile = profileByRegNumber.get(regNumber);
+    const credential = credentialByRegNumber.get(regNumber);
     const latestResultComment = (reportsByRegNumber.get(regNumber) ?? [])
       .filter((report) => report.showOnResultSheet)
       .sort((left, right) => new Date(right.updatedAt).getTime() - new Date(left.updatedAt).getTime())[0];
@@ -182,6 +189,10 @@ export async function getLiveResults(): Promise<LiveResultsData> {
           latestResultComment && attendancePolicy.classTeacherCommentEnabled
             ? latestResultComment.body
             : bundle.student.classTeacherComment,
+      },
+      coupon: {
+        ...bundle.coupon,
+        code: credential?.couponCode?.trim().toUpperCase() || bundle.coupon.code,
       },
       scores,
       status,

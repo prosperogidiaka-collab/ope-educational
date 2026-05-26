@@ -8,6 +8,8 @@ node_modules
 .dev.vars.*
 .wrangler
 .open-next
+.tmp
+data/private
 cloudflare-env.d.ts
 dist
 coverage

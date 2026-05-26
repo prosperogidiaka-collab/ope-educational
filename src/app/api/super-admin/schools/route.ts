@@ -7,6 +7,7 @@ import {
   writeStoredStaffAccounts,
 } from "@/lib/staff-accounts-store";
 import { requirePlatformSuperAdmin } from "@/lib/super-admin-access";
+import { generateTemporaryPassword } from "@/lib/secret-utils";
 import type { SchoolPortfolioItem } from "@/lib/types";
 
 interface CreateSchoolPayload {
@@ -97,6 +98,7 @@ export async function POST(request: Request) {
   }
 
   const timestamp = new Date().toISOString();
+  const temporaryPassword = generateTemporaryPassword("Admin");
   const schoolId = `sch_${Date.now()}`;
   const school: SchoolPortfolioItem = {
     id: schoolId,
@@ -117,7 +119,7 @@ export async function POST(request: Request) {
     schoolCode,
     fullName: schoolAdminName,
     email: schoolAdminEmail,
-    password: "Admin@123",
+    password: temporaryPassword,
     role: "school_admin" as const,
     status: "active" as const,
     mustChangePassword: true,
@@ -140,5 +142,6 @@ export async function POST(request: Request) {
   return NextResponse.json({
     school,
     account: (({ password: _password, ...publicAccount }) => publicAccount)(schoolAdminAccount),
+    temporaryPassword,
   });
 }

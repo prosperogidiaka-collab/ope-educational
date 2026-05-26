@@ -276,6 +276,7 @@ export function SuperAdminBoard({
         error?: string;
         school?: SchoolPortfolioItem;
         account?: StaffAccount;
+        temporaryPassword?: string;
       };
 
       if (!response.ok || !payload.school || !payload.account) {
@@ -290,7 +291,7 @@ export function SuperAdminBoard({
       setAccountScopeDrafts((current) => ({ ...current, [createdAccount.id]: "" }));
       setCreateDraft(BLANK_CREATE_SCHOOL);
       setFeedback(
-        `${createdSchool.name} was created with ${createdAccount.fullName} as the school admin. Temporary password: Admin@123. The admin will be forced to change it on first sign-in.`,
+        `${createdSchool.name} was created with ${createdAccount.fullName} as the school admin. Temporary password: ${payload.temporaryPassword ?? "saved to local private storage"}. The admin will be forced to change it on first sign-in.`,
       );
     } catch (error) {
       setFeedback(error instanceof Error ? error.message : "Could not create the school right now.");

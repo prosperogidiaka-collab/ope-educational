@@ -6,7 +6,7 @@ import { RegistrarCredentialsPanel } from "@/components/governance-panels";
 import { MetricCard } from "@/components/metric-card";
 import { isSchoolAdminRole } from "@/lib/auth";
 import { getCurrentStaffAccount } from "@/lib/auth-server";
-import { couponInventory, school } from "@/lib/demo-data";
+import { school } from "@/lib/demo-data";
 import { getLiveResults } from "@/lib/live-results";
 import { readVisibleStudentPortalCredentials } from "@/lib/student-portal-credentials-store";
 
@@ -18,6 +18,7 @@ export default async function StudentAccessPage() {
     getLiveResults(),
   ]);
   const studentPortalCredentials = await readVisibleStudentPortalCredentials(account);
+  const couponInventory = studentSummaries.map((summary) => summary.bundle.coupon);
   const readyCredentials = studentPortalCredentials.filter((credential) => credential.status === "ready").length;
   const sentCredentials = studentPortalCredentials.filter((credential) => credential.status === "sent").length;
   const resetRequired = studentPortalCredentials.filter((credential) => credential.status === "reset_required").length;

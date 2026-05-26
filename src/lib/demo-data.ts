@@ -25,7 +25,6 @@ import type {
   Subject,
   ResultLockRecord,
   TemplatePreset,
-  UserRole,
   VerificationRecord,
 } from "@/lib/types";
 
@@ -271,11 +270,11 @@ const students: Student[] = [
 ];
 
 const coupons: Coupon[] = [
-  { id: "coupon_1", code: "A93K2L7Q8P", regNumber: "OPE/SS2/001", session: school.session, term: school.term, maxViews: 3, usedViews: 1, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 0 },
-  { id: "coupon_2", code: "B7M4N8X2Q5", regNumber: "OPE/SS2/002", session: school.session, term: school.term, maxViews: 3, usedViews: 0, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 1 },
-  { id: "coupon_3", code: "C1R5T9U3V7", regNumber: "OPE/SS2/003", session: school.session, term: school.term, maxViews: 2, usedViews: 2, expiresAt: "2026-05-10T23:59:00.000Z", active: false, oneTimeAccess: true, revokedReason: "Revoked after repeated failed portal access attempts.", failedAttempts: 6 },
-  { id: "coupon_4", code: "D2W6Y0Z4H8", regNumber: "OPE/SS2/004", session: school.session, term: school.term, maxViews: 3, usedViews: 1, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 0 },
-  { id: "coupon_5", code: "E3J7K1L5M9", regNumber: "OPE/SS2/005", session: school.session, term: school.term, maxViews: 3, usedViews: 0, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 0 },
+  { id: "coupon_1", code: "", regNumber: "OPE/SS2/001", session: school.session, term: school.term, maxViews: 3, usedViews: 1, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 0 },
+  { id: "coupon_2", code: "", regNumber: "OPE/SS2/002", session: school.session, term: school.term, maxViews: 3, usedViews: 0, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 1 },
+  { id: "coupon_3", code: "", regNumber: "OPE/SS2/003", session: school.session, term: school.term, maxViews: 2, usedViews: 2, expiresAt: "2026-05-10T23:59:00.000Z", active: false, oneTimeAccess: true, revokedReason: "Revoked after repeated failed portal access attempts.", failedAttempts: 6 },
+  { id: "coupon_4", code: "", regNumber: "OPE/SS2/004", session: school.session, term: school.term, maxViews: 3, usedViews: 1, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 0 },
+  { id: "coupon_5", code: "", regNumber: "OPE/SS2/005", session: school.session, term: school.term, maxViews: 3, usedViews: 0, expiresAt: "2026-07-30T23:59:00.000Z", active: true, failedAttempts: 0 },
 ];
 
 function clearances(status: "cleared" | "blocked" = "cleared"): ClearanceFlag[] {
@@ -654,28 +653,24 @@ export const portfolioSchoolAdminSeeds = [
     schoolName: school.name,
     fullName: school.schoolAdminName ?? "School Admin",
     email: school.schoolAdminEmail ?? "admin@ope.edu.ng",
-    password: "Admin@123",
   },
   {
     schoolCode: "BHC-SEC-002",
     schoolName: "Beacon Heights College",
     fullName: "Mr. Seun Afolabi",
     email: "admin@beaconheights.edu.ng",
-    password: "Admin@123",
   },
   {
     schoolCode: "NPA-SEC-003",
     schoolName: "New Promise Academy",
     fullName: "Mrs. Ruth Danjuma",
     email: "admin@newpromise.edu.ng",
-    password: "Admin@123",
   },
   {
     schoolCode: "MCC-SEC-004",
     schoolName: "Maranatha College",
     fullName: "Mr. Peter Okoro",
     email: "admin@maranatha.edu.ng",
-    password: "Admin@123",
   },
 ] as const;
 
@@ -867,99 +862,13 @@ export const studentPortalCredentials: StudentPortalCredential[] = students.map(
   regNumber: student.regNumber,
   schoolCode: school.schoolCode,
   username: `${school.shortName.toLowerCase().replace(/\s+/g, "")}.${student.regNumber.split("/").pop()?.toLowerCase()}`,
-  temporaryPassword: `Ope@${(index + 1).toString().padStart(3, "0")}`,
+  temporaryPassword: "",
   generatedBy: "Mrs. Folasade Adekunle",
   generatedAt: "2026-04-09T09:15:00.000Z",
   status: index === 2 ? "reset_required" : index === 0 ? "sent" : "ready",
   accountState: "active",
-  couponCode: coupons[index]?.code ?? "",
+  couponCode: "",
 }));
-
-export interface StaffLoginCredential {
-  name: string;
-  email: string;
-  password: string;
-  role: UserRole;
-  scope: string;
-}
-
-const legacyStaffLoginCredentials: StaffLoginCredential[] = [
-  { name: "Prosper Ogidiaka", email: "prosperogidiaka@gmail.com", password: "7767737Prosper", role: "super_admin", scope: "Full platform oversight across all schools" },
-  { name: school.schoolAdminName ?? "School Admin", email: school.schoolAdminEmail ?? "admin@ope.edu.ng", password: "Admin@123", role: "school_admin", scope: "School-admin control center, academic setup, score review, broadsheet, audit desk, report editor, and templates" },
-  { name: "Dr. Tunde Balogun", email: "hod@ope.edu.ng", password: "Hod@123", role: "hod", scope: "Teacher desk, score review, broadsheet, and audit desk" },
-  { name: "Mrs. Folake Aina", email: "faina@ope.edu.ng", password: "Teacher@123", role: "teacher", scope: "Teacher desk, class attendance, class comments, and broadsheet for the assigned arm" },
-  { name: "Mr. Kalejaiye", email: "teacher@ope.edu.ng", password: "Teacher@123", role: "teacher", scope: "Score entry for assigned subjects only" },
-  { name: "Mrs. Folasade Adekunle", email: "registrar@ope.edu.ng", password: "Registrar@123", role: "registrar", scope: "Dashboard and account / student-credential management" },
-  { name: "Bursary Office", email: "bursar@ope.edu.ng", password: "Bursar@123", role: "bursar", scope: "Dashboard and score review (fee clearance)" },
-  { name: "Management Audit", email: "manager@ope.edu.ng", password: "Manager@123", role: "manager", scope: "Dashboard, score review, broadsheet, and audit desk" },
-];
-void legacyStaffLoginCredentials;
-
-function passwordForRole(role: UserRole) {
-  const defaults: Record<UserRole, string> = {
-    super_admin: "7767737Prosper",
-    school_admin: "Admin@123",
-    principal: "Principal@123",
-    registrar: "Registrar@123",
-    teacher: "Teacher@123",
-    manager: "Manager@123",
-    hod: "Hod@123",
-    class_teacher: "Teacher@123",
-    bursar: "Bursar@123",
-    parent: "Parent@123",
-  };
-
-  return defaults[role];
-}
-
-function loginScopeForAccount(account: StaffAccount) {
-  if (account.role === "school_admin" || account.role === "principal") {
-    return `School-level administration for ${account.schoolCode} only, including academic setup, teacher assignments, result locks, score review, report editor, audit desk, and templates`;
-  }
-
-  if (account.role === "teacher" && account.classTeacherArms.length === 0) {
-    const scopedAssignments = account.assignedSubjects.map(
-      (subject, index) => `${subject} / ${account.assignedArms[index] ?? account.assignedArms[0] ?? "assigned class"}`,
-    );
-
-    return scopedAssignments.length > 0
-      ? `Score entry for ${scopedAssignments.join(", ")} only`
-      : "Subject-teacher score entry for assigned subject-class arms only";
-  }
-
-  if (account.classTeacherArms.length > 0) {
-    return `Teacher desk, subject score entry, class attendance, class comments, and broadsheet access for ${account.classTeacherArms.join(", ") || "assigned class arms"}`;
-  }
-
-  if (account.role === "hod") {
-    return "Teacher desk, score review, broadsheet, and audit desk";
-  }
-
-  if (account.role === "registrar") {
-    return "Dashboard and account / student-credential management";
-  }
-
-  return "Role-specific dashboards and controls";
-}
-
-export const staffLoginCredentials: StaffLoginCredential[] = [
-  {
-    name: "Prosper Ogidiaka",
-    email: "prosperogidiaka@gmail.com",
-    password: "7767737Prosper",
-    role: "super_admin",
-    scope: "Platform-wide monitoring, school follow-up, subscription control, and super admin operations",
-  },
-  ...staffAccounts
-    .filter((account) => account.status === "active")
-    .map((account) => ({
-      name: account.fullName,
-      email: account.email,
-      password: passwordForRole(account.role),
-      role: account.role,
-      scope: loginScopeForAccount(account),
-    })),
-];
 
 const staffAccountByName = new Map(staffAccounts.map((account) => [account.fullName, account]));
 
